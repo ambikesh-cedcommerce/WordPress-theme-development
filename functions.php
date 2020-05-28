@@ -30,6 +30,8 @@ function themeslug_enqueue_script() {
 }
 	add_action( 'wp_enqueue_scripts', 'themeslug_enqueue_style' );
 	add_action( 'wp_enqueue_scripts', 'themeslug_enqueue_script' );
-
+	add_theme_support( 'post_thumbnails' );
+	add_theme_support( 'post_thumbnails', array( 'search-form', 'comment-form ', 'comment-list ', 'gallery ', 'caption' ) );
+	register_sidebar();
 
 
