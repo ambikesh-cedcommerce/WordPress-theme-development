@@ -33,5 +33,27 @@ function themeslug_enqueue_script() {
 	add_theme_support( 'post_thumbnails' );
 	add_theme_support( 'post_thumbnails', array( 'search-form', 'comment-form ', 'comment-list ', 'gallery ', 'caption' ) );
 	register_sidebar();
+/**
+ * Add theme support
+ *
+ * @return void
+ */
+	add_theme_support( 'menues' );
 
 
+/**
+ * Nave Menues
+ * This will show the Navbar in Head
+ *
+ * @return void
+ */
+function register_my_menus() {
+	register_nav_menus(
+		array(
+			'header-menu' => __( 'Header Menu' ),
+			'extra-menu'  => __( 'Extra Menu' ),
+			'footer-menu' => __( 'Foote Menue' ),
+		)
+	);
+}
+	add_action( 'init', 'register_my_menus' );

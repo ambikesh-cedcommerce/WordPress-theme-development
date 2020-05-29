@@ -39,7 +39,7 @@ if ( have_posts() ) {
 				<div class="entry">
 							<?php the_content(); ?>
 						</div>
-						<a href="<?php the_permalink(); ?>" class="btn btn-primary">Read More &rarr;</a>
+						<a href="" class="btn btn-primary">Read More &rarr;</a>
 					</div>
 					<div class="card-footer text-muted">
 						Posted on <?php the_date(); ?> by

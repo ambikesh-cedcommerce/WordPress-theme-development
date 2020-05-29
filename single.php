@@ -17,7 +17,7 @@
 get_header(); ?>
 <!-- Page Content -->
 <div class="container">
-
+<h1>single.php</h1>
 <div class="row">
 
 
