@@ -30,11 +30,19 @@ function themeslug_enqueue_script() {
 }
 	add_action( 'wp_enqueue_scripts', 'themeslug_enqueue_style' );
 	add_action( 'wp_enqueue_scripts', 'themeslug_enqueue_script' );
+
+
+
+/**
+ * Add Thumbnail in the post .
+ * Thumbnails are 'search-form', 'comment-form ', 'comment-list ', 'gallery ', 'caption'
+ */
 	add_theme_support( 'post_thumbnails' );
 	add_theme_support( 'post_thumbnails', array( 'search-form', 'comment-form ', 'comment-list ', 'gallery ', 'caption' ) );
 	register_sidebar();
+
 /**
- * Add theme support
+ * Add menus in the appearence section
  *
  * @return void
  */
@@ -42,18 +50,19 @@ function themeslug_enqueue_script() {
 
 
 /**
- * Nave Menues
+ * Register navigation menus uses wp_nav_menu in three Places
  * This will show the Navbar in Head
  *
  * @return void
  */
 function register_my_menus() {
-	register_nav_menus(
-		array(
-			'header-menu' => __( 'Header Menu' ),
-			'extra-menu'  => __( 'Extra Menu' ),
-			'footer-menu' => __( 'Foote Menue' ),
-		)
+	$locations = array(
+		'header-menu' => __( 'Header Menu' ),
+		'extra-menu'  => __( 'Extra Menu' ),
+		'footer-menu' => __( 'Foote Menue' ),
 	);
+	register_nav_menus( $locations );
+
 }
 	add_action( 'init', 'register_my_menus' );
+
