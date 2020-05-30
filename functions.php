@@ -3,7 +3,7 @@
  * MyClass File Doc Comment
  *
  * @category Mythemes
- * @package  MyPackage
+ * @package  WordPress
  * @author   Ambikeshgautam<ambikeshkumargautam@cedcoss.com>
  * @license  http://www.gnu.org/copyleft/gpl.html GNU General Public License
  * @link     http://www.hashbangcode.com/
