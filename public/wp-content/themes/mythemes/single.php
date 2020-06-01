@@ -23,7 +23,7 @@ get_header(); ?>
 
 <!-- Blog Entries Column -->
 <div class="col-md-8">
-	<h1 class="my-4">Page Heading
+	<h1 class="my-4">
 		<small>Secondary Text</small>
 	</h1>
 <?php
@@ -33,11 +33,12 @@ if ( have_posts() ) {
 		?>
 <!-- Blog Post -->
 <div class="card mb-4">
-	<img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
+	<?php the_post_thumbnail('large'); ?>
 		<div class="card-body">
 			<h2 class="card-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
 				<div class="entry">
 							<?php the_content(); ?>
+
 						</div>
 						<a href="<?php the_permalink(); ?>" class="btn btn-primary">Read More &rarr;</a>
 					</div>

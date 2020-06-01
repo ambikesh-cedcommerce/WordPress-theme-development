@@ -48,6 +48,13 @@ function themeslug_enqueue_script() {
  */
 	add_theme_support( 'menues' );
 
+/**
+ * This is featured Image.
+ * Thumbnail
+ *
+ * @return void
+ */
+add_theme_support( 'post-thumbnails' );
 
 /**
  * Register navigation menus uses wp_nav_menu in three Places
@@ -84,3 +91,13 @@ function arphabet_widgets_init() {
 
 }
 	add_action( 'widgets_init', 'arphabet_widgets_init' );
+
+
+/**
+ * For Custom logo .
+ */
+add_theme_support( 'custom-logo' );
+/**
+ * For Custom header .
+ */
+add_theme_support( 'custom-header' );
