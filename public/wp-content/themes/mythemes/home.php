@@ -39,7 +39,7 @@ if ( have_posts() ) {
 				<div class="entry">
 							<?php the_content(); ?>
 						</div>
-						<a href="" class="btn btn-primary">Read More &rarr;</a>
+						<a href="<?php the_permalink(); ?>" class="btn btn-primary">Read More &rarr;</a>
 					</div>
 					<div class="card-footer text-muted">
 						Posted on <?php the_date(); ?> by
@@ -49,7 +49,7 @@ if ( have_posts() ) {
 		<?php
 	}
 }
-			// Previous/next page navigation.
+		// Previous/next page navigation.
 				the_posts_pagination(
 					array(
 						'prev_text'          => __( 'Previous page', 'mythemes' ),
