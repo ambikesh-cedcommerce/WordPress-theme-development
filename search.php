@@ -59,10 +59,9 @@ if ( have_posts() ) {
 				);
 				?>
 			</div>
-	<?php get_sidebar(); ?>
+		<?php get_sidebar(); ?>
 	</div>
-		<!-- /.row -->
-
-	</div>
-	<!-- /.container -->
+	<!-- /.row -->
+</div>
+<!-- /.container -->
 <?php get_footer(); ?>

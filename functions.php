@@ -75,10 +75,10 @@ function arphabet_widgets_init() {
 		array(
 			'name'          => 'Right sidebar',
 			'id'            => 'right_sidebar',
-			'before_widget' => '<div>',
-			'after_widget'  => '</div>',
-			'before_title'  => '<h2 class="rounded">',
-			'after_title'   => '</h2>',
+			'before_widget' => '<div class="card my-4">',
+			'before_title'  => '<h5 class="card-header">',
+			'after_title'   => '</h5><div class="card-body">',
+			'after_widget'  => '</div></div>',
 		)
 	);
 

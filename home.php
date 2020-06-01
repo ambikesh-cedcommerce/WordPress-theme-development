@@ -25,7 +25,7 @@ get_header(); ?>
 <div class="col-md-8">
 	<h1 class="my-4">Page Heading
 		<small>Secondary Text</small>
-	</h1>
+	</h1><h1>home.php</h1>
 <?php
 if ( have_posts() ) {
 	while ( have_posts() ) {
