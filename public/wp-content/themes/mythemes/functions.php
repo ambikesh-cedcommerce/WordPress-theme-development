@@ -67,6 +67,7 @@ function register_my_menus() {
 		'header-menu' => __( 'Header Menu' ),
 		'extra-menu'  => __( 'Extra Menu' ),
 		'footer-menu' => __( 'Foote Menue' ),
+		'item-wrap'   => __( '<ul id="menu">$3$s</u>' ),
 	);
 	register_nav_menus( $locations );
 
@@ -92,6 +93,22 @@ function arphabet_widgets_init() {
 }
 	add_action( 'widgets_init', 'arphabet_widgets_init' );
 
+/**
+ * Register our sidebars and widgetized areas.
+ */
+function add_cutom_footer() {
+
+	register_sidebar(
+		array(
+			'name'          => 'Footer',
+			'id'            => 'custom_footer',
+			'before_widget' => '<div class="container">',
+			'after_widget'  => '</div>',
+		)
+	);
+
+}
+	add_action( 'widgets_init', 'add_cutom_footer' );
 
 /**
  * For Custom logo .

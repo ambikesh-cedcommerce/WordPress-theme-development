@@ -20,24 +20,23 @@
 </head>
 <body>
 	<!-- Navigation -->
+
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-		<div class="container">
-			<a class="navbar-brand" href="#">
-				<?php
-				if ( function_exists( 'the_custom_logo' ) ) {
-						the_custom_logo();
-				}
-				?>
-				</a>
-				<div class="collapse navbar-collapse" id="navbarResponsive">
-					<?php
-					wp_nav_menu(
-						array(
-							'theme_location'  => 'header-menu',
-							'container_class' => 'nav-item ',
-						)
-					);
-					?>
-				</div>
-		</div>
+	<div class="container">
+		<?php
+		if ( function_exists( 'the_custom_logo' ) ) {
+				the_custom_logo();
+		}
+		get_bloginfo();
+		?>
+		<?php
+		wp_nav_menu(
+			array(
+				'theme_location'  => 'header-menu',
+				'container_class' => 'nav-item ',
+			)
+		);
+		?>
+	</div>
 	</nav>
+	<img alt="" src="<?php header_image(); ?>" width="<?php echo absint( get_custom_header()->width ); ?>" height="<?php echo absint( get_custom_header()->height ); ?>">

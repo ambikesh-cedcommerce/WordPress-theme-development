@@ -17,10 +17,7 @@
 get_header(); ?>
 <!-- Page Content -->
 <div class="container">
-
 <div class="row">
-
-
 <!-- Blog Entries Column -->
 <div class="col-md-8">
 	<h1 class="my-4">Page Heading

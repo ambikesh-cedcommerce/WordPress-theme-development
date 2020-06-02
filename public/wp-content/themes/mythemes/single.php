@@ -33,7 +33,7 @@ if ( have_posts() ) {
 		?>
 <!-- Blog Post -->
 <div class="card mb-4">
-	<?php the_post_thumbnail('large'); ?>
+		<?php the_post_thumbnail( 'large' ); ?>
 		<div class="card-body">
 			<h2 class="card-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
 				<div class="entry">
