@@ -22,7 +22,7 @@ get_header(); ?>
 
 
 <!-- Blog Entries Column -->
-<div class="col-md-8">
+<div class="col-md-8"><h1>page.php</h1>
 	<h1 class="my-4">Page Heading
 		<small>Secondary Text</small>
 	</h1>

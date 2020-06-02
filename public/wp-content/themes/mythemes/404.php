@@ -8,7 +8,7 @@
  */
 
 get_header(); ?>
-
+	<h1>404.php</h1>
 	<div id="primary" class="content-area">
 		<div id="content" class="site-content" role="main">
 

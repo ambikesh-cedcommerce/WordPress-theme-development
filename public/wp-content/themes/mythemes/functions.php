@@ -130,13 +130,29 @@ add_theme_support( 'automatic-feed-links' );
 /**
 * Html5
 */
-add_theme_support( 'html5', array( 'comment-list', 'comment-form', 'search-form', 'gallery', 'caption', 'style', 'script' ) );
+add_theme_support( 'html5', array( 'gallery' ) );
 
 /**
  * For content width .
  */
 add_theme_support( 'content-width' );
+/**
+ * For title-tag .
+ */
+add_theme_support( 'title-tag' );
+/**
+ * Added post_formate with feature, aside gallery.
+ *
+ * @see add_theme_support for post-formate.
+ */
+function themename_post_formats_setup() {
+	add_theme_support( 'post-formats', array( 'aside', 'gallery' ) );
+}
+	add_action( 'after_setup_theme', 'themename_post_formats_setup' );
 
+/**
+ * For editor style .
+ */
 add_editor_style( 'css/custom-editor-style.css' );
 /**
  * Register a custom post type called "book".
@@ -190,3 +206,4 @@ function custom_book_post() {
 }
 
 add_action( 'init', 'custom_book_post' );
+
