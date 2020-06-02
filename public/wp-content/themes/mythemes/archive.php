@@ -20,7 +20,7 @@ get_header(); ?>
 <div class="row">
 <!-- Blog Entries Column -->
 <div class="col-md-8">
-	<h1 class="my-4">Archive-book.php
+	<h1 class="my-4">Archive.php
 		<small>Secondary Text</small>
 	</h1>
 <?php

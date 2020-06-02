@@ -1,4 +1,3 @@
-<h1>author.php</h1>
 <?php
 /**
  * The main template file
