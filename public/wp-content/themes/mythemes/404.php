@@ -20,6 +20,7 @@ get_header(); ?>
 				<div class="page-content">
 					<h2><?php esc_attr_e( 'This is somewhat embarrassing, isn’t it?', 'Mythemes' ); ?></h2>
 					<p><?php esc_attr_e( 'It looks like nothing was found at this location. Maybe try a search?', 'Mythemes' ); ?></p>
+					<a href="<?php home_url(); ?>">Go Back Home</a>
 
 				</div><!-- .page-content -->
 			</div><!-- .page-wrapper -->

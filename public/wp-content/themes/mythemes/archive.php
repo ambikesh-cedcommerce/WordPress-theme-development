@@ -20,7 +20,7 @@ get_header(); ?>
 <div class="row">
 <!-- Blog Entries Column -->
 <div class="col-md-8">
-	<h1 class="my-4">Archive-book.php
+	<h1 class="my-4">Archive.php
 		<small>Secondary Text</small>
 	</h1>
 <?php
@@ -40,7 +40,7 @@ if ( have_posts() ) {
 					</div>
 					<div class="card-footer text-muted">
 						Posted on <?php the_date(); ?> by
-						<?php the_author(); ?>
+						<?php the_author_posts_link(); ?>
 					</div>
 				</div>
 		<?php

@@ -51,7 +51,7 @@ if ( have_posts() ) {
 					</div>
 					<div class="card-footer text-muted">
 						Posted on <?php the_date(); ?> by
-						<?php the_author(); ?>
+						<?php the_author_posts_link(); ?>
 					</div>
 				</div>
 		<?php

@@ -152,7 +152,7 @@ switch ( $wp_list_table->current_action() ) {
 			$user->set_role( $role );
 		}
 
-		wp_redirect( add_query_arg( 'update', $update, $redirect ) );
+			wp_redirect( add_query_arg( 'update', $update, $redirect ) );
 		exit();
 
 	case 'dodelete':
