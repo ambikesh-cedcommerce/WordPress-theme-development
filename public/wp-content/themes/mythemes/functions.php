@@ -128,20 +128,22 @@ add_theme_support( 'custom-header' );
 add_theme_support( 'automatic-feed-links' );
 
 /**
- * For support  html5 gallery caption .
- */
-add_theme_support( 'html5', array( 'gallery', 'caption' ) );
+* Html5
+*/
+add_theme_support( 'html5', array( 'comment-list', 'comment-form', 'search-form', 'gallery', 'caption', 'style', 'script' ) );
+
 /**
  * For content width .
  */
 add_theme_support( 'content-width' );
 
+add_editor_style( 'css/custom-editor-style.css' );
 /**
  * Register a custom post type called "book".
  *
  * @see get_post_type_labels() for label keys.
  */
-function wpdocs_codex_book_init() {
+function custom_book_post() {
 	$labels = array(
 		'name'                  => _x( 'Books', 'Post type general name', 'textdomain' ),
 		'singular_name'         => _x( 'Book', 'Post type singular name', 'textdomain' ),
@@ -187,4 +189,4 @@ function wpdocs_codex_book_init() {
 	register_post_type( 'book', $args );
 }
 
-add_action( 'init', 'wpdocs_codex_book_init' );
+add_action( 'init', 'custom_book_post' );

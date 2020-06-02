@@ -11,21 +11,17 @@
  *
  * @package WordPress
  * @subpackage Mythemes
- * @since Twenty Sixteen 1.0
+ * @since Mythemes 1.0
  */
 
 get_header(); ?>
 <!-- Page Content -->
 <div class="container">
-
 <div class="row">
-
-
 <!-- Blog Entries Column -->
 <div class="col-md-8">
-	<h1 class="my-4">Page Heading
+	<h1 class="my-4">Archive-book.php
 		<small>Secondary Text</small>
-		index.php
 	</h1>
 <?php
 if ( have_posts() ) {
@@ -50,7 +46,7 @@ if ( have_posts() ) {
 		<?php
 	}
 }
-			// Previous/next page navigation.
+		// Previous/next page navigation.
 				the_posts_pagination(
 					array(
 						'prev_text'          => __( 'Previous page', 'mythemes' ),
