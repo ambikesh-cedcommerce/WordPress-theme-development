@@ -11,7 +11,7 @@
  *
  * @package WordPress
  * @subpackage Mythemes
- * @since Twenty Sixteen 1.0
+ * @since Mythemes 1.0
  */
 
 get_header(); ?>
