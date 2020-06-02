@@ -10,7 +10,6 @@
 			dynamic_sidebar( 'custom_footer' ); ?>
 		<!-- /.container -->
 	</footer>
-
 	<!-- Bootstrap core JavaScript -->	
 	<?php
 	/**
@@ -19,9 +18,7 @@
 	 *
 	 * @package Footer
 	 */
-
 	?>
-
 	<?php	wp_footer(); ?>
 
 	<?php	wp_footer(); ?>	

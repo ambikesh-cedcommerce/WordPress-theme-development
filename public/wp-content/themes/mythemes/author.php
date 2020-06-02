@@ -1,3 +1,4 @@
+<h1>author.php</h1>
 <?php
 /**
  * The main template file
@@ -25,13 +26,14 @@ get_header(); ?>
 <div class="col-md-8">
 	<h1 class="my-4">Page Heading
 		<small>Secondary Text</small>
-		index.php
+		Author.php
 	</h1>
 <?php
-if ( have_posts() ) {
-	while ( have_posts() ) {
-		the_post();
-		?>
+if ( is_user_logged_in() ) {
+	if ( have_posts() ) {
+		while ( have_posts() ) {
+			the_post();
+			?>
 <!-- Blog Post -->
 <div class="card mb-4">
 	<img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
@@ -44,12 +46,12 @@ if ( have_posts() ) {
 					</div>
 					<div class="card-footer text-muted">
 						Posted on <?php the_date(); ?> by
-						<?php the_author_posts_link(); ?>
+						<?php the_author(); ?>
 					</div>
 				</div>
-		<?php
+				<?php
+		}
 	}
-}
 			// Previous/next page navigation.
 				the_posts_pagination(
 					array(
@@ -58,7 +60,7 @@ if ( have_posts() ) {
 						'before_page_number' => '<span class="meta-nav screen-reader-text">' . __( 'Page', 'mythemes' ) . ' </span>',
 					)
 				);
-				?>
+	?>
 			</div>
 	<?php get_sidebar(); ?>
 	</div>
@@ -66,4 +68,4 @@ if ( have_posts() ) {
 
 	</div>
 	<!-- /.container -->
-<?php get_footer(); ?>
+<?php } get_footer(); ?>
