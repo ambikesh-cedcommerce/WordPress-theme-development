@@ -208,24 +208,9 @@ function custom_book_post() {
 add_action( 'init', 'custom_book_post' );
 
 /**
- * Get the user's roles
- * @ since 1.0.0
+ * Restrict auther for author-center page.
  */
-
-
-// function wcmo_get_current_user_roles() {
-// 	if ( is_user_logged_in() ) {
-// 	$user = wp_get_current_user();
-// 	$roles = ( array ) $user->roles;
-// 	return $roles; // This returns an array
-// 	// Use this to return a single value
-// 	// return $roles[0];
-// 	} else {
-// 	return array();
-// 	}
-// }
-
-add_action ( 'template_redirect', function(){
+function restric_auther() {
 
 	// Get global post.
 	global $post;
@@ -247,19 +232,21 @@ add_action ( 'template_redirect', function(){
 		if ( $redirect ) {
 			wp_redirect( esc_url( wp_login_url() ), 307 );
 		}
-
 	}
+}
+add_action( 'template_redirect', 'restric_auther' );
 
-} );
-
-add_action ( 'template_redirect', function() {
+/**
+ * Restrict subscriber for subscriber-center page.
+ */
+function restric_subsrciber() {
 
 	// Get global post.
 	global $post;
 
 	// Prevent access to page with ID of 2 and all children of this page.
 	$page_id = 1992;
-	if ( is_page() && ( $post->post_parent === $page_id || is_page( $page_id ) ) ) {
+	if ( is_page() && ( $post === $page_id || is_page( $page_id ) ) ) {
 
 		// Set redirect to true by default.
 		$redirect = true;
@@ -273,9 +260,7 @@ add_action ( 'template_redirect', function() {
 		// Redirect people without access to login page.
 		if ( $redirect ) {
 			wp_redirect( esc_url( wp_login_url() ), 307 );
-
 		}
-
 	}
-
-} );
+}
+add_action( 'template_redirect', 'restric_subsrciber' );
