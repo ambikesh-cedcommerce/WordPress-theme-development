@@ -211,11 +211,12 @@ add_action( 'init', 'custom_book_post' );
  * Fetch current user rol.
  */
 function get_user_role() {
+
 	global $current_user;
 
 	$user_roles = $current_user->roles; // Accessing current user rol .
 
-	$user_role = array_shift( $user_roles ); // For pop user_role form object .
+	$user_role = array_shift( $user_roles ); // For pop user_role form array -> object .
 
 	return $user_role;
 }
@@ -225,6 +226,7 @@ function get_user_role() {
  */
 
 add_action( 'template_redirect', 'sub_res' );
+
 /**
  * Validate
  */
@@ -247,39 +249,11 @@ function sub_res() {
 
 				// Redirect people without access to login page.
 			if ( $redirect ) {
-					wp_redirect( esc_url( home_url() ), 307 );
+					wp_safe_redirect( esc_url( home_url() ), 307 );
 			}
 		}
 	}
 }
-
-
-// add_action( 'template_redirect',
-// 	function() {
-
-// 		// Prevent access to page with ID of 2 and all children of this page.
-// 		$page_id = 1992;
-// 		$user    = get_user_role();
-
-// 		if ( is_user_logged_in() && 'author' == $user ) {
-// 			$redirect = false;
-
-// 			if ( is_page() && ( is_page( $page_id ) ) ) {
-
-// 				// Set redirect to true by default.
-// 				$redirect = true;
-
-// 				// If logged in do not redirect
-// 				// You can/should place additional checks here based on user roles or user meta.
-
-// 				// Redirect people without access to login page.
-// 				if ( $redirect ) {
-// 					wp_redirect( esc_url( home_url() ), 307 );
-// 				}
-// 			}
-// 	}	
-// }
-// );
 
 /**
  * Restrict subscriber for subscriber-center page.
@@ -288,6 +262,7 @@ function restric_author() {
 
 	// Prevent access to page with ID of 2 and all children of this page.
 	$page_id = 1992;
+	$user    = get_user_role();
 	if ( is_page() && ( is_page( $page_id ) ) ) {
 
 		// Set redirect to true by default.
@@ -301,7 +276,7 @@ function restric_author() {
 
 		// Redirect people without access to login page.
 		if ( $redirect ) {
-			wp_redirect( esc_url( home_url() ), 307 );
+			wp_safe_redirect( esc_url( home_url() ), 307 );
 		}
 	}
 }
