@@ -225,59 +225,73 @@ function get_user_role() {
  * ================ Validate =================
  */
 
-add_action( 'template_redirect', 'sub_res' );
+add_action( 'template_redirect', 'sub_and_auth_res' );
 
 /**
- * Validate
+ * Restricting user  author and subscriber .
  */
-function sub_res() {
+function sub_and_auth_res() {
 
-		// Prevent access to page with ID of 2 and all children of this page.
 		$page_id = 1990;
-		$user    = get_user_role();
+		$user    = get_user_role(); // Fetching user role .
 
+	// If user logged then don't redirect page .
+	// if user is subscriber do not access autherpage .
 	if ( is_user_logged_in() && 'subscriber' === $user ) {
 			$redirect = false;
 
-		if ( is_page() && ( is_page( $page_id ) ) ) {
+		if ( is_page() && ( is_page( $page_id ) ) ) {// If is page then make redirect true.
 
 				// Set redirect to true by default.
 				$redirect = true;
 
-				// If logged in do not redirect
-				// You can/should place additional checks here based on user roles or user meta.
-
-				// Redirect people without access to login page.
+				// if this redirect is true then redirect on the homepage.
 			if ( $redirect ) {
 					wp_safe_redirect( esc_url( home_url() ), 307 );
 			}
 		}
+	}
+	// If user is not logged in then this will checking guest user.
+	elseif ( ! is_user_logged_in() ) { // Checking for the guest user.
+
+		$redirect = false;// Make false if user is not logged in .
+		// if  author_center page or subscriber-center page.
+		if ( is_page( 1992 ) || is_page( 1990 ) ) {
+			$redirect = true;
+		}
+		if ( $redirect ) {// if is true then redirect on the homepage .
+			wp_safe_redirect( esc_url( home_url() ), 307 );
+		}
+	} 
+	// Else user is looged in and role is author then redirect false.
+	elseif ( is_user_logged_in() && ( 'author' === $user ) ) {
+				$redirect = false;
 	}
 }
 
 /**
  * Restrict subscriber for subscriber-center page.
  */
-function restric_author() {
+// function restric_author() {
 
-	// Prevent access to page with ID of 2 and all children of this page.
-	$page_id = 1992;
-	$user    = get_user_role();
-	if ( is_page() && ( is_page( $page_id ) ) ) {
+// 	// Prevent access to page with ID of 2 and all children of this page.
+// 	$page_id = 1992;
+// 	$user    = get_user_role();
+// 	if ( is_page() && ( is_page( $page_id ) ) ) {
 
-		// Set redirect to true by default.
-		$redirect = true;
+// 		// Set redirect to true by default.
+// 		$redirect = true;
 
-		// If logged in do not redirect
-		// You can/should place additional checks here based on user roles or user meta.
-		if ( is_user_logged_in() ) {
-			$redirect = false;
-		}
+// 		// If logged in do not redirect
+// 		// You can/should place additional checks here based on user roles or user meta.
+// 		if ( is_user_logged_in() ) {
+// 			$redirect = false;
+// 		}
 
-		// Redirect people without access to login page.
-		if ( $redirect ) {
-			wp_safe_redirect( esc_url( home_url() ), 307 );
-		}
-	}
-}
-add_action( 'template_redirect', 'restric_author' );
+// 		// Redirect people without access to login page.
+// 		if ( $redirect ) {
+// 			wp_safe_redirect( esc_url( home_url() ), 307 );
+// 		}
+// 	}
+// }
+// add_action( 'template_redirect', 'restric_author' );
