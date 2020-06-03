@@ -1,6 +1,6 @@
 <?php
 /**
- * MyClass File Doc Comment
+ * Function's of mythemes
  *
  * @category Mythemes
  * @package  WordPress
