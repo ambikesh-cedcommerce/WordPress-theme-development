@@ -250,9 +250,7 @@ function sub_and_auth_res() {
 					wp_safe_redirect( esc_url( home_url() ), 307 );
 			}
 		}
-	}
-	// If user is not logged in then this will checking guest user.
-	elseif ( ! is_user_logged_in() ) { // Checking for the guest user.
+	} elseif ( ! is_user_logged_in() ) { // Checking for the guest user.
 
 		$redirect = false;// Make false if user is not logged in .
 		// if  author_center page or subscriber-center page.
@@ -262,9 +260,7 @@ function sub_and_auth_res() {
 		if ( $redirect ) {// if is true then redirect on the homepage .
 			wp_safe_redirect( esc_url( home_url() ), 307 );
 		}
-	} 
-	// Else user is looged in and role is author then redirect false.
-	elseif ( is_user_logged_in() && ( 'author' === $user ) ) {
+	} elseif ( is_user_logged_in() && ( 'author' === $user ) ) {// Else user is looged in and role is author then redirect false.
 				$redirect = false;
 	}
 }
