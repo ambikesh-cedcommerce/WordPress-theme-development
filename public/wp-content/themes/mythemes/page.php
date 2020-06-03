@@ -1,15 +1,3 @@
-<?php 
-// $current_user = wp_get_current_user();
-// $current_user_id = get_current_user_id();
-// $all_info = get_userdata($current_user_id);
-// echo "<pre>";
-// print_r($current_user);
-// echo"<pre>";
-// $roles = wcmo_get_current_user_roles();
-// print_r($roles);
-
-// die();	
-?>
 <?php
 /**
  * The main template file
