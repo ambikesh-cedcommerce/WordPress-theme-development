@@ -269,29 +269,3 @@ function sub_and_auth_res() {
 	}
 }
 
-/**
- * Restrict subscriber for subscriber-center page.
- */
-// function restric_author() {
-
-// 	// Prevent access to page with ID of 2 and all children of this page.
-// 	$page_id = 1992;
-// 	$user    = get_user_role();
-// 	if ( is_page() && ( is_page( $page_id ) ) ) {
-
-// 		// Set redirect to true by default.
-// 		$redirect = true;
-
-// 		// If logged in do not redirect
-// 		// You can/should place additional checks here based on user roles or user meta.
-// 		if ( is_user_logged_in() ) {
-// 			$redirect = false;
-// 		}
-
-// 		// Redirect people without access to login page.
-// 		if ( $redirect ) {
-// 			wp_safe_redirect( esc_url( home_url() ), 307 );
-// 		}
-// 	}
-// }
-// add_action( 'template_redirect', 'restric_author' );
