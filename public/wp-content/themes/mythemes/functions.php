@@ -281,3 +281,4 @@ function restric_author() {
 	}
 }
 add_action( 'template_redirect', 'restric_author' );
+
