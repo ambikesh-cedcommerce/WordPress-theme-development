@@ -170,7 +170,7 @@ function get_user_role() {
 }
 
 /**
- * ================ Validate =================
+ * ================ Restrict user(role) Author and Subscriber =================
  */
 
 add_action( 'template_redirect', 'sub_and_auth_res' );
@@ -198,7 +198,7 @@ function sub_and_auth_res() {
 					wp_safe_redirect( esc_url( home_url() ), 307 );
 			}
 		}
-	} elseif ( ! is_user_logged_in() ) { // Checking for the guest user.
+	} elseif ( ! is_user_logged_in() ) { // Checking for the guest user(if this is not logged in  user ).
 
 		$redirect = false;// Make false if user is not logged in .
 		// if  author_center page or subscriber-center page.
