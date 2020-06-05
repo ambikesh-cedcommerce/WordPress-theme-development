@@ -77,38 +77,40 @@ function register_my_menus() {
 /**
  * Register our sidebars and widgetized areas.
  */
-function arphabet_widgets_init() {
-
+function sidebar_widgets_init() {
+	/* Register the 'RightSidebar' sidebar. */
 	register_sidebar(
 		array(
-			'name'          => 'Right sidebar',
-			'id'            => 'right_sidebar',
-			'before_widget' => '<div class="card my-4">',
-			'before_title'  => '<h5 class="card-header">',
-			'after_title'   => '</h5><div class="card-body">',
-			'after_widget'  => '</div></div>',
+			'name'          => ( 'Right sidebar' ),
+			'id'            => ( 'right_sidebar' ),
+			'before_widget' => ( '<div class="card my-4">' ),
+			'before_title'  => ( '<h5 class="card-header">' ),
+			'after_title'   => ( '</h5><div class="card-body">' ),
+			'after_widget'  => ( '</div></div>' ),
 		)
 	);
+	/* Register the 'Leftsidebar' sidebar. */
+		register_sidebar(
+			array(
+				'id'          => ( 'left_sidebar' ),
+				'name'        => __( 'Left Sidebar' ),
+				'description' => __( 'This is left sidebar it will all the sidebar.php element in left' ),
+			)
+		);
+		/* Register Footer Widgets. */
+		register_sidebar(
+			array(
+				'name'          => ( 'Footer' ),
+				'id'            => ( 'custom_footer' ),
+				'before_widget' => ( '<div class="container">' ),
+				'after_widget'  => ( '</div>' ),
+			)
+		);
 
 }
-	add_action( 'widgets_init', 'arphabet_widgets_init' );
+	add_action( 'widgets_init', 'sidebar_widgets_init' );
 
-/**
- * Register our sidebars and widgetized areas.
- */
-function add_cutom_footer() {
 
-	register_sidebar(
-		array(
-			'name'          => 'Footer',
-			'id'            => 'custom_footer',
-			'before_widget' => '<div class="container">',
-			'after_widget'  => '</div>',
-		)
-	);
-
-}
-	add_action( 'widgets_init', 'add_cutom_footer' );
 
 /**
  * For Custom logo .
@@ -154,6 +156,64 @@ function themename_post_formats_setup() {
  * For editor style .
  */
 add_editor_style( 'css/custom-editor-style.css' );
+
+/**
+ * Fetch current user rol.
+ */
+function get_user_role() {
+
+	global $current_user;
+
+	$user_roles = $current_user->roles; // Accessing current user rol .
+
+	$user_role = array_shift( $user_roles ); // For pop user_role form array -> object .
+
+	return $user_role;
+}
+
+/**
+ * ================ Restrict user(role) Author and Subscriber =================
+ */
+
+add_action( 'template_redirect', 'sub_and_auth_res' );
+
+/**
+ * Restricting user  author and subscriber .
+ */
+function sub_and_auth_res() {
+
+		$page_id = 1990;
+		$user    = get_user_role(); // Fetching user role .
+
+	// If user logged then don't redirect page .
+	// if user is subscriber do not access autherpage .
+	if ( is_user_logged_in() && 'subscriber' === $user ) {
+			$redirect = false;
+
+		if ( is_page() && ( is_page( $page_id ) ) ) {// If is page then make redirect true.
+
+				// Set redirect to true by default.
+				$redirect = true;
+
+				// if this redirect is true then redirect on the homepage.
+			if ( $redirect ) {
+					wp_safe_redirect( esc_url( home_url() ), 307 );
+			}
+		}
+	} elseif ( ! is_user_logged_in() ) { // Checking for the guest user(if this is not logged in  user ).
+
+		$redirect = false;// Make false if user is not logged in .
+		// if  author_center page or subscriber-center page.
+		if ( is_page( 1992 ) || is_page( 1990 ) ) {
+			$redirect = true;
+		}
+		if ( $redirect ) {// if is true then redirect on the homepage .
+			wp_safe_redirect( esc_url( home_url() ), 307 );
+		}
+	} elseif ( is_user_logged_in() && ( 'author' === $user ) ) {// Else user is looged in and role is author then redirect false.
+				$redirect = false;
+	}
+}
 /**
  * Register a custom post type called "book".
  *
@@ -206,65 +266,3 @@ function custom_book_post() {
 }
 
 add_action( 'init', 'custom_book_post' );
-
-/**
- * Fetch current user rol.
- */
-function get_user_role() {
-
-	global $current_user;
-
-	$user_roles = $current_user->roles; // Accessing current user rol .
-
-	$user_role = array_shift( $user_roles ); // For pop user_role form array -> object .
-
-	return $user_role;
-}
-
-/**
- * ================ Validate =================
- */
-
-/**
- * ================ Restrict user(role) Author and Subscriber =================
- */
-
-add_action( 'template_redirect', 'sub_and_auth_res' );
-
-/**
- * Restricting user  author and subscriber .
- */
-function sub_and_auth_res() {
-
-		$page_id = 1990;
-		$user    = get_user_role(); // Fetching user role .
-
-	// If user logged then don't redirect page .
-	// if user is subscriber do not access autherpage .
-	if ( is_user_logged_in() && 'subscriber' === $user ) {
-			$redirect = false;
-
-		if ( is_page() && ( is_page( $page_id ) ) ) {// If is page then make redirect true.
-
-				// Set redirect to true by default.
-				$redirect = true;
-
-				// if this redirect is true then redirect on the homepage.
-			if ( $redirect ) {
-					wp_safe_redirect( esc_url( home_url() ), 307 );
-			}
-		}
-	} elseif ( ! is_user_logged_in() ) { // Checking for the guest user(if this is not logged in  user ).
-
-		$redirect = false;// Make false if user is not logged in .
-		// if  author_center page or subscriber-center page.
-		if ( is_page( 1992 ) || is_page( 1990 ) ) {
-			$redirect = true;
-		}
-		if ( $redirect ) {// if is true then redirect on the homepage .
-			wp_safe_redirect( esc_url( home_url() ), 307 );
-		}
-	} elseif ( is_user_logged_in() && ( 'author' === $user ) ) {// Else user is looged in and role is author then redirect false.
-				$redirect = false;
-	}
-}

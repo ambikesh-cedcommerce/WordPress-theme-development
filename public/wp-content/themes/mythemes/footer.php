@@ -7,6 +7,7 @@
 			 * @package WordPress
 			 */
 
+			dynamic_sidebar( 'left_sidebar' );
 			dynamic_sidebar( 'custom_footer' ); ?>
 		<!-- /.container -->
 	</footer>
