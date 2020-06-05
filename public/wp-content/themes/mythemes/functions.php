@@ -77,38 +77,40 @@ function register_my_menus() {
 /**
  * Register our sidebars and widgetized areas.
  */
-function arphabet_widgets_init() {
-
+function sidebar_widgets_init() {
+	/* Register the 'RightSidebar' sidebar. */
 	register_sidebar(
 		array(
-			'name'          => 'Right sidebar',
-			'id'            => 'right_sidebar',
-			'before_widget' => '<div class="card my-4">',
-			'before_title'  => '<h5 class="card-header">',
-			'after_title'   => '</h5><div class="card-body">',
-			'after_widget'  => '</div></div>',
+			'name'          => ( 'Right sidebar' ),
+			'id'            => ( 'right_sidebar' ),
+			'before_widget' => ( '<div class="card my-4">' ),
+			'before_title'  => ( '<h5 class="card-header">' ),
+			'after_title'   => ( '</h5><div class="card-body">' ),
+			'after_widget'  => ( '</div></div>' ),
 		)
 	);
+	/* Register the 'Leftsidebar' sidebar. */
+		register_sidebar(
+			array(
+				'id'          => ( 'left_sidebar' ),
+				'name'        => __( 'Left Sidebar' ),
+				'description' => __( 'This is left sidebar it will all the sidebar.php element in left' ),
+			)
+		);
+		/* Register Footer Widgets. */
+		register_sidebar(
+			array(
+				'name'          => ( 'Footer' ),
+				'id'            => ( 'custom_footer' ),
+				'before_widget' => ( '<div class="container">' ),
+				'after_widget'  => ( '</div>' ),
+			)
+		);
 
 }
-	add_action( 'widgets_init', 'arphabet_widgets_init' );
+	add_action( 'widgets_init', 'sidebar_widgets_init' );
 
-/**
- * Register our sidebars and widgetized areas.
- */
-function add_cutom_footer() {
 
-	register_sidebar(
-		array(
-			'name'          => 'Footer',
-			'id'            => 'custom_footer',
-			'before_widget' => '<div class="container">',
-			'after_widget'  => '</div>',
-		)
-	);
-
-}
-	add_action( 'widgets_init', 'add_cutom_footer' );
 
 /**
  * For Custom logo .
