@@ -15,17 +15,32 @@
  */
 
 get_header(); ?>
+<?php if ( get_theme_mod( 'basic-author-callout-display' ) === 'Yes' ) { ?>
+			<div class="row row-padding author">
+				<div class=" col-6 author-image">
+					<img src="<?php echo esc_url( wp_get_attachment_url( get_theme_mod( 'basic-author-callout-image' ) ) ); ?>" alt="Author Image">
+				</div>
+				<div class="col-6 author-content">
+				<?php
+					$authortext = get_theme_mod( 'basic-author-callout-text' );
+				if ( '' !== $authortext ) {
+							echo esc_attr( $authortext );
+				} else {
+						echo ' Endit this by going to your Dashboard ->Appearence -> Customizer -> Author Edit section ';
+				}
+				?>
+				</div>
+			</div>
+	<?php } ?>
 <!-- Page Content -->
 <div class="container">
-
 <div class="row">
-
-
 <!-- Blog Entries Column -->
 <div class="col-md-8"><h1>page.php</h1>
 	<h1 class="my-4">Page Heading
 		<small>Secondary Text</small>
 	</h1>
+	<?php get_sidebar( 'new' ); ?>
 <?php
 if ( have_posts() ) {
 	while ( have_posts() ) {
@@ -58,11 +73,10 @@ if ( have_posts() ) {
 					)
 				);
 				?>
-			</div>
-	<?php get_sidebar(); ?>
-	</div>
+				</div>
+			<?php get_sidebar(); ?>
+		</div>
 		<!-- /.row -->
-
 	</div>
 	<!-- /.container -->
 <?php get_footer(); ?>

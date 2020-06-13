@@ -1,0 +1,178 @@
+<?php
+/**
+ * This is used to restrict users pages according to theire Roles .
+ *
+ * @return void
+ * @package Mythemes
+ */
+
+/**
+ * Adds My_widgets widget.
+ */
+class My_Widget extends WP_Widget {
+
+	/**
+	 * Sets up the widgets name etc
+	 */
+	public function __construct() {
+		$widget_ops = array(
+			'classname'   => 'my_widget ', // Register new Custom widgets .
+			'description' => 'My Widget is awesome', // Description of the custom widgets.
+		);
+		parent::__construct( 'my_widget', 'My Widget', $widget_ops );
+	}
+
+	/**
+	 * Outputs the content of the widget
+	 *
+	 * @param array $args Which will .
+	 * @param array $instance .
+	 */
+	public function widget( $args, $instance ) {
+		static $first_dropdown = true;
+
+		$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'Categories' );
+
+		/** This filter is documented in wp-includes/widgets/class-wp-widget-pages.php */
+		$title = apply_filters( 'widget_title', $title, $instance, $this->id_base );
+
+		$count        = ! empty( $instance['count'] ) ? '1' : '0';
+		$hierarchical = ! empty( $instance['hierarchical'] ) ? '1' : '0';
+		$dropdown     = ! empty( $instance['dropdown'] ) ? '1' : '0';
+
+		echo $args ['before_widget'];
+
+		if ( $title ) {
+			echo  $args['before_title'] . $title . $args['after_title'] ;
+		}
+
+		$cat_args = array(
+			'orderby'      => 'name',
+			'show_count'   => $count,
+			'hierarchical' => $hierarchical,
+		);
+
+		if ( $dropdown ) {
+			echo sprintf( '<form action="%s" method="get">', esc_url( home_url() ) );
+			$dropdown_id    = ( $first_dropdown ) ? 'cat' : "{$this->id_base}-dropdown-{$this->number}";
+			$first_dropdown = false;
+
+			echo '<label class="screen-reader-text" for="' . esc_attr( $dropdown_id ) . '">' . $title . '</label>';
+
+			$cat_args['show_option_none'] = __( 'Select Category' );
+			$cat_args['id']               = $dropdown_id;
+
+			/**
+			 * Filters the arguments for the Categories widget drop-down.
+			 *
+			 * @since 2.8.0
+			 * @since 4.9.0 Added the `$instance` parameter.
+			 *
+			 * @see wp_dropdown_categories()
+			 *
+			 * @param array $cat_args An array of Categories widget drop-down arguments.
+			 * @param array $instance Array of settings for the current widget.
+			 */
+			wp_dropdown_categories( apply_filters( 'widget_categories_dropdown_args', $cat_args, $instance ) );
+
+			echo '</form>';
+
+			$type_attr = current_theme_supports( 'html5', 'script' ) ? '' : ' type="text/javascript"';
+			?>
+
+<script<?php echo $type_attr; ?>>
+/* <![CDATA[ */
+(function() {
+	var dropdown = document.getElementById( "<?php echo esc_js( $dropdown_id ); ?>" );
+	function onCatChange() {
+		if ( dropdown.options[ dropdown.selectedIndex ].value > 0 ) {
+			dropdown.parentNode.submit();
+		}
+	}
+	dropdown.onchange = onCatChange;
+})();
+/* ]]> */
+</script>
+
+			<?php
+		} else {
+			?>
+		<ul>
+			<?php
+			$cat_args['title_li'] = '';
+
+			/**
+			 * Filters the arguments for the Categories widget.
+			 *
+			 * @since 2.8.0
+			 * @since 4.9.0 Added the `$instance` parameter.
+			 *
+			 * @param array $cat_args An array of Categories widget options.
+			 * @param array $instance Array of settings for the current widget.
+			 */
+			wp_list_categories( apply_filters( 'widget_categories_args', $cat_args, $instance ) );
+			?>
+		</ul>
+			<?php
+		}
+
+		echo  $args['after_widget'];
+	}
+
+	/**
+	 * Handles updating settings for the current Categories widget instance.
+	 *
+	 * @since 2.8.0
+	 *
+	 * @param array $instance New settings for this instance as input by the user via .
+
+	 */
+	public function form( $instance ) {
+		$instance     = wp_parse_args( (array) $instance, array( 'title' => '' ) );
+		$count        = isset( $instance['count'] ) ? (bool) $instance['count'] : false;
+		$hierarchical = isset( $instance['hierarchical'] ) ? (bool) $instance['hierarchical'] : false;
+		$dropdown     = isset( $instance['dropdown'] ) ? (bool) $instance['dropdown'] : false;
+		?>
+		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label>
+		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $instance['title'] ); ?>" /></p>
+
+		<p><input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'dropdown' ); ?>" name="<?php echo $this->get_field_name( 'dropdown' ); ?>"<?php checked( $dropdown ); ?> />
+		<label for="<?php echo $this->get_field_id( 'dropdown' ); ?>"><?php _e( 'Display as dropdown' ); ?></label><br />
+
+		<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'count' ); ?>" name="<?php echo $this->get_field_name( 'count' ); ?>"<?php checked( $count ); ?> />
+		<label for="<?php echo $this->get_field_id( 'count' ); ?>"><?php _e( 'Show post counts' ); ?></label><br />
+
+		<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'hierarchical' ); ?>" name="<?php echo $this->get_field_name( 'hierarchical' ); ?>"<?php checked( $hierarchical ); ?> />
+		<label for="<?php echo $this->get_field_id( 'hierarchical' ); ?>"><?php _e( 'Show hierarchy' ); ?></label></p>
+		<?php
+	}
+
+	/**
+	 * Processing widget options on save
+	 *
+	 * @param array $new_instance The new options.
+	 * @param array $old_instance The previous options.
+	 *
+	 * @return array
+	 */
+	public function update( $new_instance, $old_instance ) {
+		// processes widget options to be saved.
+		$instance                 = $old_instance;
+		$instance['title']        = sanitize_text_field( $new_instance['title'] );
+		$instance['count']        = ! empty( $new_instance['count'] ) ? 1 : 0;
+		$instance['hierarchical'] = ! empty( $new_instance['hierarchical'] ) ? 1 : 0;
+		$instance['dropdown']     = ! empty( $new_instance['dropdown'] ) ? 1 : 0;
+
+		return $instance;
+	}
+}
+	add_action(
+		'widgets_init',
+		function() {
+			register_widget(
+				'My_Widget'
+			);
+		}
+	);
+
+	?>

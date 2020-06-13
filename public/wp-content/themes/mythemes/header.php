@@ -37,6 +37,10 @@
 			)
 		);
 		?>
+	<br>
+	<br>
+	<br>
+	<br>
 	</div>
 	</nav>
 	<img alt="" src="<?php header_image(); ?>" width="<?php echo absint( get_custom_header()->width ); ?>" height="<?php echo absint( get_custom_header()->height ); ?>">

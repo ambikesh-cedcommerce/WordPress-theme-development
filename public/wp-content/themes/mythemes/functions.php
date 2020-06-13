@@ -1,12 +1,9 @@
 <?php
 /**
- * Function's of mythemes
  *
- * @category Mythemes
- * @package  WordPress
- * @author   Ambikeshgautam<ambikeshkumargautam@cedcoss.com>
- * @license  http://www.gnu.org/copyleft/gpl.html GNU General Public License
- * @link     http://www.hashbangcode.com/
+ * Convert an object to an array
+ *
+ * @package   Mythemes
  */
 
 /**
@@ -30,6 +27,7 @@ function themeslug_enqueue_script() {
 }
 	add_action( 'wp_enqueue_scripts', 'themeslug_enqueue_style' );
 	add_action( 'wp_enqueue_scripts', 'themeslug_enqueue_script' );
+
 
 
 
@@ -73,43 +71,6 @@ function register_my_menus() {
 
 }
 	add_action( 'init', 'register_my_menus' );
-
-/**
- * Register our sidebars and widgetized areas.
- */
-function sidebar_widgets_init() {
-	/* Register the 'RightSidebar' sidebar. */
-	register_sidebar(
-		array(
-			'name'          => ( 'Right sidebar' ),
-			'id'            => ( 'right_sidebar' ),
-			'before_widget' => ( '<div class="card my-4">' ),
-			'before_title'  => ( '<h5 class="card-header">' ),
-			'after_title'   => ( '</h5><div class="card-body">' ),
-			'after_widget'  => ( '</div></div>' ),
-		)
-	);
-	/* Register the 'Leftsidebar' sidebar. */
-		register_sidebar(
-			array(
-				'id'          => ( 'left_sidebar' ),
-				'name'        => __( 'Left Sidebar' ),
-				'description' => __( 'This is left sidebar it will all the sidebar.php element in left' ),
-			)
-		);
-		/* Register Footer Widgets. */
-		register_sidebar(
-			array(
-				'name'          => ( 'Footer' ),
-				'id'            => ( 'custom_footer' ),
-				'before_widget' => ( '<div class="container">' ),
-				'after_widget'  => ( '</div>' ),
-			)
-		);
-
-}
-	add_action( 'widgets_init', 'sidebar_widgets_init' );
-
 
 
 /**
@@ -157,113 +118,14 @@ function themename_post_formats_setup() {
  */
 add_editor_style( 'css/custom-editor-style.css' );
 
-/**
- * Fetch current user rol.
- */
-function get_user_role() {
-
-	global $current_user;
-
-	$user_roles = $current_user->roles; // Accessing current user rol .
-
-	$user_role = array_shift( $user_roles ); // For pop user_role form array -> object .
-
-	return $user_role;
-}
-
-/**
- * ================ Restrict user(role) Author and Subscriber =================
- */
-
-add_action( 'template_redirect', 'sub_and_auth_res' );
-
-/**
- * Restricting user  author and subscriber .
- */
-function sub_and_auth_res() {
-
-		$page_id = 1990;
-		$user    = get_user_role(); // Fetching user role .
-
-	// If user logged then don't redirect page .
-	// if user is subscriber do not access autherpage .
-	if ( is_user_logged_in() && 'subscriber' === $user ) {
-			$redirect = false;
-
-		if ( is_page() && ( is_page( $page_id ) ) ) {// If is page then make redirect true.
-
-				// Set redirect to true by default.
-				$redirect = true;
-
-				// if this redirect is true then redirect on the homepage.
-			if ( $redirect ) {
-					wp_safe_redirect( esc_url( home_url() ), 307 );
-			}
-		}
-	} elseif ( ! is_user_logged_in() ) { // Checking for the guest user(if this is not logged in  user ).
-
-		$redirect = false;// Make false if user is not logged in .
-		// if  author_center page or subscriber-center page.
-		if ( is_page( 1992 ) || is_page( 1990 ) ) {
-			$redirect = true;
-		}
-		if ( $redirect ) {// if is true then redirect on the homepage .
-			wp_safe_redirect( esc_url( home_url() ), 307 );
-		}
-	} elseif ( is_user_logged_in() && ( 'author' === $user ) ) {// Else user is looged in and role is author then redirect false.
-				$redirect = false;
-	}
-}
-
-/**
- * Register a custom post type called "book".
- *
- * @see get_post_type_labels() for label keys.
- */
-function custom_book_post() {
-	$labels = array(
-		'name'                  => _x( 'Books', 'Post type general name', 'textdomain' ),
-		'singular_name'         => _x( 'Book', 'Post type singular name', 'textdomain' ),
-		'menu_name'             => _x( 'Books', 'Admin Menu text', 'textdomain' ),
-		'name_admin_bar'        => _x( 'Book', 'Add New on Toolbar', 'textdomain' ),
-		'add_new'               => __( 'Add New', 'textdomain' ),
-		'add_new_item'          => __( 'Add New Book', 'textdomain' ),
-		'new_item'              => __( 'New Book', 'textdomain' ),
-		'edit_item'             => __( 'Edit Book', 'textdomain' ),
-		'view_item'             => __( 'View Book', 'textdomain' ),
-		'all_items'             => __( 'All Books', 'textdomain' ),
-		'search_items'          => __( 'Search Books', 'textdomain' ),
-		'parent_item_colon'     => __( 'Parent Books:', 'textdomain' ),
-		'not_found'             => __( 'No books found.', 'textdomain' ),
-		'not_found_in_trash'    => __( 'No books found in Trash.', 'textdomain' ),
-		'featured_image'        => _x( 'Book Cover Image', 'Overrides the “Featured Image” phrase for this post type. Added in 4.3', 'textdomain' ),
-		'set_featured_image'    => _x( 'Set cover image', 'Overrides the “Set featured image” phrase for this post type. Added in 4.3', 'textdomain' ),
-		'remove_featured_image' => _x( 'Remove cover image', 'Overrides the “Remove featured image” phrase for this post type. Added in 4.3', 'textdomain' ),
-		'use_featured_image'    => _x( 'Use as cover image', 'Overrides the “Use as featured image” phrase for this post type. Added in 4.3', 'textdomain' ),
-		'archives'              => _x( 'Book archives', 'The post type archive label used in nav menus. Default “Post Archives”. Added in 4.4', 'textdomain' ),
-		'insert_into_item'      => _x( 'Insert into book', 'Overrides the “Insert into post”/”Insert into page” phrase (used when inserting media into a post). Added in 4.4', 'textdomain' ),
-		'uploaded_to_this_item' => _x( 'Uploaded to this book', 'Overrides the “Uploaded to this post”/”Uploaded to this page” phrase (used when viewing media attached to a post). Added in 4.4', 'textdomain' ),
-		'filter_items_list'     => _x( 'Filter books list', 'Screen reader text for the filter links heading on the post type listing screen. Default “Filter posts list”/”Filter pages list”. Added in 4.4', 'textdomain' ),
-		'items_list_navigation' => _x( 'Books list navigation', 'Screen reader text for the pagination heading on the post type listing screen. Default “Posts list navigation”/”Pages list navigation”. Added in 4.4', 'textdomain' ),
-		'items_list'            => _x( 'Books list', 'Screen reader text for the items list heading on the post type listing screen. Default “Posts list”/”Pages list”. Added in 4.4', 'textdomain' ),
-	);
-
-	$args = array(
-		'labels'             => $labels,
-		'public'             => true,
-		'publicly_queryable' => true,
-		'show_ui'            => true,
-		'show_in_menu'       => true,
-		'query_var'          => true,
-		'rewrite'            => array( 'slug' => 'book' ),
-		'capability_type'    => 'post',
-		'has_archive'        => true,
-		'hierarchical'       => false,
-		'menu_position'      => null,
-		'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' ),
-	);
-
-	register_post_type( 'book', $args );
-}
-
-add_action( 'init', 'custom_book_post' );
+// Custom widgets options .
+require_once get_stylesheet_directory() . '/inc/class-my-widget.php';
+// Custom Sidebar .
+require_once get_stylesheet_directory() . '/inc/custom-sidebar.php';
+// Validate pages by user role like author ,admin ,subscriber , etc .
+require_once get_stylesheet_directory() . '/inc/restric-author-access-pages.php';
+// Customize post type Which is book custom post type  .
+require_once get_stylesheet_directory() . '/inc/custom-posttype.php';
+// Adding customize API'S to customize some feature using customize .
+require_once get_stylesheet_directory() . '/inc/class-theminimalist-customizer.php';
+new TheMinimalist_Customizer(); // New object of the TheMinimalist_Customzer.

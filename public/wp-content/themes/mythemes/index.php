@@ -15,18 +15,15 @@
  */
 
 get_header(); ?>
-<!-- Page Content -->
+<!-- Page Content -->	
 <div class="container">
-
 <div class="row">
-
-
 <!-- Blog Entries Column -->
 <div class="col-md-8">
-	<h1 class="my-4">Page Heading
+	<h1 class="my-4">Page Heading	
 		<small>Secondary Text</small>
 		index.php
-	</h1>
+	</h1>	
 <?php
 if ( have_posts() ) {
 	while ( have_posts() ) {
