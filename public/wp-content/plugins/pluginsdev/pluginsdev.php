@@ -62,12 +62,12 @@ function activate_pluginsdev() {
 			'wporg_product',
 			array(
 				'labels'      => array(
-					'name'          => __( 'sdfsddf', 'textdomain' ),
-					'singular_name' => __( 'asdfsddffd', 'textdomain' ),
+					'name'          => __( 'music', 'textdomain' ),
+					'singular_name' => __( 'musiclist', 'textdomain' ),
 				),
 				'public'      => true,
 				'has_archive' => true,
-				'rewrite'     => array( 'slug' => 'products' ), // my custom slug .
+				'rewrite'     => array( 'slug' => 'music' ), // my custom slug .
 			)
 		);
 	}
@@ -80,7 +80,7 @@ function activate_pluginsdev() {
  */
 function deactivate_pluginsdev() {
 			// Unregister the post type  , so the rules are no  longer in memory .
-			unregister_post_type( 'Products' );
+			unregister_post_type( 'music' );
 			// Clear the permalinks to remove our post type's rule from the database .
 			flush_rewrite_rules();
 }
