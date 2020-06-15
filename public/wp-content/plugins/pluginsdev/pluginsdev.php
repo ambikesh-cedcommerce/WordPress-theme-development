@@ -54,8 +54,24 @@ define( 'PLUGINSDEV_VERSION', '1.0.0' );
  * This action is documented in includes/class-pluginsdev-activator.php
  */
 function activate_pluginsdev() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-pluginsdev_activator.php';
-	plugins_Activator::activate(); // Allows access to method (activate) of class Plugins_Activator .
+	/**
+	 * Register the "Music" custom post type .
+	 */
+	function wporg_custom_post_type() {
+		register_post_type(
+			'wporg_product',
+			array(
+				'labels'      => array(
+					'name'          => __( 'sdfsddf', 'textdomain' ),
+					'singular_name' => __( 'asdfsddffd', 'textdomain' ),
+				),
+				'public'      => true,
+				'has_archive' => true,
+				'rewrite'     => array( 'slug' => 'products' ), // my custom slug .
+			)
+		);
+	}
+
 }
 
 /**
@@ -63,10 +79,12 @@ function activate_pluginsdev() {
  * This action is documented in includes/class-pluginsdev-deactivator.php.
  */
 function deactivate_pluginsdev() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-pluginsdev-deactivator.php';
-	plugins_Deactivator::deactivate(); // Allows access to method (deactivate) of class Plugins_Deactivator .
+			// Unregister the post type  , so the rules are no  longer in memory .
+			unregister_post_type( 'Products' );
+			// Clear the permalinks to remove our post type's rule from the database .
+			flush_rewrite_rules();
 }
-register_activation_hook( __FILE__, 'activate_pluinsdev' ); // This will activate this function which we want to activate in the plugins functionality.
+register_activation_hook( __FILE__, 'activate_pluginsdev' ); // This will activate this function which we want to activate in the plugins functionality.
 register_deactivation_hook( __FILE__, 'deactivate_pluginsdev' ); // This will deactivate all the custom post or feature which we want to remove after the deactivation of the plugins .
 
 /**
