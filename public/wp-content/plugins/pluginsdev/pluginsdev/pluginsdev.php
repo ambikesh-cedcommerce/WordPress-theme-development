@@ -13,7 +13,7 @@
  *
  * @wordpress-plugin
  * Plugin Name:       Pluginsdev
- * Plugin URI:        https://github.com/ambikeshkumargautam-cedcoss/WordPress-theme-development/tree/master/public/wp-content/plugins/myplugins-dev
+ * Plugin URI:        https://github.com/ambikeshkumargautam-cedcoss/WordPress-theme-development/tree/master/public/wp-content/plugins/pluginsdev
  * Description:       This Plugins is about making our own plugins in WordPress.
  * Version:           1.0.0
  * Requires at least: 5.2
@@ -48,4 +48,4 @@ if ( ! defined( 'WPINC' ) ) {
  * Currently plugin version.
  * Start at version 1.0.0 and use SemVer - https://semver.org
  */
-define( 'PLUGIN_NAME_VERSION', '1.0.0' );
+define( 'PLUGINSDEV_VERSION', '1.0.0' );
