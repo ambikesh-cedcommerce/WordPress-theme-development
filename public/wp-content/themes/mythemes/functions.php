@@ -125,7 +125,7 @@ require_once get_stylesheet_directory() . '/inc/custom-sidebar.php';
 // Validate pages by user role like author ,admin ,subscriber , etc .
 require_once get_stylesheet_directory() . '/inc/restric-author-access-pages.php';
 // Customize post type Which is book custom post type  .
-require_once get_stylesheet_directory() . '/inc/custom-posttype.php';
+// require_once get_stylesheet_directory() . '/inc/custom-posttype.php';
 // Adding customize API'S to customize some feature using customize .
 require_once get_stylesheet_directory() . '/inc/class-theminimalist-customizer.php';
 new TheMinimalist_Customizer(); // New object of the TheMinimalist_Customzer.

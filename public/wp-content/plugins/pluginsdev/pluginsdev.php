@@ -50,44 +50,39 @@ if ( ! defined( 'WPINC' ) ) {
  */
 define( 'PLUGINSDEV_VERSION', '1.0.0' );
 /**
- * The will activate a plugins and enable new custom post in the WP_Admin .
- * This action is documented in includes/class-pluginsdev-activator.php
+ * Register the "book" custom post type
  */
-function activate_pluginsdev() {
-	/**
-	 * Register the "Music" custom post type .
-	 */
-	function wporg_custom_post_type() {
-		register_post_type(
-			'wporg_product',
-			array(
-				'labels'      => array(
-					'name'          => __( 'music', 'textdomain' ),
-					'singular_name' => __( 'musiclist', 'textdomain' ),
-				),
-				'public'      => true,
-				'has_archive' => true,
-				'rewrite'     => array( 'slug' => 'music' ), // my custom slug .
-			)
-		);
-	}
+function pluginprefix_setup_post_type() {
+	register_post_type(
+		'mobile',
+		array(
+			'public' => true,
+			'label'  => 'Mobile',
+		)
+	);
 
 }
+add_action( 'init', 'pluginprefix_setup_post_type' );
 
 /**
- * This function will deactivate this pluginsdev .
- * This action is documented in includes/class-pluginsdev-deactivator.php.
+ * Activate the plugin.
  */
-function deactivate_pluginsdev() {
-			// Unregister the post type  , so the rules are no  longer in memory .
-			unregister_post_type( 'music' );
-			// Clear the permalinks to remove our post type's rule from the database .
-			flush_rewrite_rules();
+function pluginprefix_activate() {
+	// Trigger our function that registers the custom post type plugin.
+	pluginprefix_setup_post_type();
+
+	// Clear the permalinks after the post type has been registered.
+	flush_rewrite_rules();
 }
-register_activation_hook( __FILE__, 'activate_pluginsdev' ); // This will activate this function which we want to activate in the plugins functionality.
-register_deactivation_hook( __FILE__, 'deactivate_pluginsdev' ); // This will deactivate all the custom post or feature which we want to remove after the deactivation of the plugins .
-
+register_activation_hook( __FILE__, 'pluginprefix_activate' );
 /**
- * The core  pluginsdev class that is used to defive internationalization ,
- * admin-specific hooks , and public-facing site hooks.
+ * Deactivation hook.
  */
+function pluginprefix_deactivate() {
+	// Unregister the post type, so the rules are no longer in memory.
+	unregister_post_type( 'mobile' );
+	// Clear the permalinks to remove our post type's rules from the database.
+	flush_rewrite_rules();
+}
+register_deactivation_hook( __FILE__, 'pluginprefix_deactivate' );
+
