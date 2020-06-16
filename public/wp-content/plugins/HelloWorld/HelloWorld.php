@@ -50,63 +50,41 @@ if ( ! defined( 'WPINC' ) ) {
  */
 define( 'PLUGINSDEV_VERSION', '1.0.0' );
 /**
- * Comment of this class here...
+ * Activate the plugin.
  */
-final class HelloWorld {
-	/**
-	 * Activate the plugin.
-	 */
-	public function __construct() {
-		add_action( 'init', array( $this, 'custom_post_type' ) );
-	}
-	/**
-	 * Activate the plugin.
-	 */
-	public function register() {
-		add_action( 'admin-menu', array( $this, 'add_admin_pages' ) );
-	}
-	/**
-	 * Activate the plugin.
-	 */
-	public function add_admin_pages() {
-		add_menu_page( 'HelloWorld Plugin', 'HelloWorld', 'manage_options', 'HelloWorld_plugin', array( $this , 'admin_index'), 'dashicons-store',110 ); 
-	}
-	/**
-	 * Comment of this class here...
-	 *
-	 * @param string $string this will recieve a messege which is comming form the created object .
-	 */
-	/**
-	 * Activate the plugin.
-	 */
-	public function custom_post_type() {
-		register_post_type(
-			'music',
-			array(
-				'public' => true,
-				'label'  => 'Music',
+function pluginprefix_activate() {
+	// Clear the permalinks after the post type has been registered.
+	flush_rewrite_rules();
+	helloworld_activation();// For activate Plugins .
+}
+register_activation_hook( __FILE__, 'pluginprefix_activate' );
 
-			)
-		);
-	}
-	/**
-	 * Activate the plugin .
-	 */
-	public function uninstall() {
-		// Delete custom post type .
-		// Delete  all the data from the DataBase .
-	}
-
+/**
+ * Deactivation hook.
+ */
+function pluginprefix_deactivate() {
+	// Clear the permalinks to remove our post type's rules from the database.
+	flush_rewrite_rules();
+	// For deactivate Plugins .
+	hellworld_deactivation();
 }
 
-if ( class_exists( 'HelloWorld' ) ) { // If this class exists then create a instance of this class .
-	$helloworld = new HelloWorld( 'initialzation' ); // Instance of the class .
-
+register_deactivation_hook( __FILE__, 'pluginprefix_deactivate' );
+// Uninstall Plugin .
+register_uninstall_hook( __FILE__, 'pluginprefix_function_to_run' );
+/**
+ * HellWord_activation function activate plugins .
+ *
+ * @return void
+ */
+function helloworld_activation() {
+	add_option( 'installed_on' );
 }
-// Activation  .
-require_once plugin_dir_path( __FILE__ ) . '/includes/class-HelloWorld-activate.php';
-register_activation_hook( __FILE__, array( 'HelloWorld_Activate', 'activate' ) );
-// Deactivation .
-require_once plugin_dir_path( __FILE__ ) . '/includes/class-HelloWorld-deactivate.php';
-register_deactivation_hook( __FILE__, array( 'HelloWorld_Deactivate', 'deactivate' ) );
-// Uninstall .
+/**
+ * HellWord_deactivation function activate plugins .
+ *
+ * @return void
+ */
+function hellworld_deactivation() {
+	delete_option( 'installed_on' );
+}
