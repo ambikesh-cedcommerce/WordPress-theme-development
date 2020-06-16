@@ -46,16 +46,60 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 final class Myplugins_Dev {
 	/**
+	 * Activate the plugin.
+	 */
+	public function __construct() {
+		add_action( 'init', array( $this, 'custom_post_type' ) );
+	}
+	/**
 	 * Comment of this class here...
 	 *
 	 * @param string $string this will recieve a messege which is comming form the created object .
 	 */
-	public function __construct( $string ) {
-		echo esc_html( $string );
+	/**
+	 * Activate the plugin.
+	 */
+	public function custom_post_type() {
+		register_post_type(
+			'book',
+			array(
+				'public' => true,
+				'label'  => 'Books',
+
+			)
+		);
 	}
+	/**
+	 * Activate the plugin.
+	 */
+	public function activate() {
+		// Generated a CTP .
+		$this->custom_post_type();
+		// Flush rewrite rules.
+	}
+	/**
+	 * Activate the plugin.
+	 */
+	public function deactivate() {
+		// Flush rewrite rules .
+	}
+	/**
+	 * Activate the plugin .
+	 */
+	public function uninstall() {
+		// Delete custom post type .
+		// Delete  all the data from the DataBase .
+	}
+
 }
 
 if ( class_exists( 'Myplugins_Dev' ) ) { // If this class exists then create a instance of this class .
-	$myplugins_dev = new Myplugins_Dev( 'Myplugins-dev initialized' ); // Instance of the class .
+	$myplugins_dev = new Myplugins_Dev( 'initialzation' ); // Instance of the class .
 }
+
+// Activation  .
+register_activation_hook( __FILE__, array( $myplugins_dev, 'activate' ) );
+// Deactivation .
+register_deactivation_hook( __FILE__, array( $myplugins_dev, 'deactivate' ) );
+// Uninstall .
 
