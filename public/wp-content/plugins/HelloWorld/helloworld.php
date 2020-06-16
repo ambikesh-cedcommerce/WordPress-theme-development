@@ -55,7 +55,7 @@ define( 'PLUGINSDEV_VERSION', '1.0.0' );
 function pluginprefix_activate() {
 	// Clear the permalinks after the post type has been registered.
 	flush_rewrite_rules();
-	helloworld_activation();// For activate Plugins .
+	add_option( 'installed_on', current_datetime() );
 }
 register_activation_hook( __FILE__, 'pluginprefix_activate' );
 
@@ -66,25 +66,9 @@ function pluginprefix_deactivate() {
 	// Clear the permalinks to remove our post type's rules from the database.
 	flush_rewrite_rules();
 	// For deactivate Plugins .
-	hellworld_deactivation();
+	delete_option( 'installed_on' );
 }
 
 register_deactivation_hook( __FILE__, 'pluginprefix_deactivate' );
 // Uninstall Plugin .
 register_uninstall_hook( __FILE__, 'pluginprefix_function_to_run' );
-/**
- * HellWord_activation function activate plugins .
- *
- * @return void
- */
-function helloworld_activation() {
-	add_option( 'installed_on', current_datetime() );
-}
-/**
- * HellWord_deactivation function deactivate plugins .
- *
- * @return void
- */
-function hellworld_deactivation() {
-	delete_option( 'installed_on' );
-}
