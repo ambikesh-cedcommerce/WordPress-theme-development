@@ -78,7 +78,7 @@ register_uninstall_hook( __FILE__, 'pluginprefix_function_to_run' );
  * @return void
  */
 function helloworld_activation() {
-	add_option( 'installed_on', time() );
+	add_option( 'installed_on', current_datetime() );
 }
 /**
  * HellWord_deactivation function deactivate plugins .
