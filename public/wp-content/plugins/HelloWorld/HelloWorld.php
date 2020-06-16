@@ -60,6 +60,18 @@ final class HelloWorld {
 		add_action( 'init', array( $this, 'custom_post_type' ) );
 	}
 	/**
+	 * Activate the plugin.
+	 */
+	public function register() {
+		add_action( 'admin-menu', array( $this, 'add_admin_pages' ) );
+	}
+	/**
+	 * Activate the plugin.
+	 */
+	public function add_admin_pages() {
+		add_menu_page( 'HelloWorld Plugin', 'HelloWorld', 'manage_options', 'HelloWorld_plugin', array( $this , 'admin_index'), 'dashicons-store',110 ); 
+	}
+	/**
 	 * Comment of this class here...
 	 *
 	 * @param string $string this will recieve a messege which is comming form the created object .
@@ -78,20 +90,6 @@ final class HelloWorld {
 		);
 	}
 	/**
-	 * Activate the plugin.
-	 */
-	public function activate() {
-		// Generated a CTP .
-		$this->custom_post_type();
-		// Flush rewrite rules.
-	}
-	/**
-	 * Activate the plugin.
-	 */
-	public function deactivate() {
-		// Flush rewrite rules .
-	}
-	/**
 	 * Activate the plugin .
 	 */
 	public function uninstall() {
@@ -105,9 +103,10 @@ if ( class_exists( 'HelloWorld' ) ) { // If this class exists then create a inst
 	$helloworld = new HelloWorld( 'initialzation' ); // Instance of the class .
 
 }
-
 // Activation  .
-register_activation_hook( __FILE__, array( $helloworld, 'activate' ) );
+require_once plugin_dir_path( __FILE__ ) . '/includes/class-HelloWorld-activate.php';
+register_activation_hook( __FILE__, array( 'HelloWorld_Activate', 'activate' ) );
 // Deactivation .
-register_deactivation_hook( __FILE__, array( $helloworld, 'deactivate' ) );
+require_once plugin_dir_path( __FILE__ ) . '/includes/class-HelloWorld-deactivate.php';
+register_deactivation_hook( __FILE__, array( 'HelloWorld_Deactivate', 'deactivate' ) );
 // Uninstall .

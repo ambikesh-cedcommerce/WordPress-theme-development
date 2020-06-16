@@ -13,7 +13,7 @@ class HelloWorld_Deactivate {
 	 *
 	 * @return void
 	 */
-	public static function deactivate() {
+	public static function deactteiva() {
 			flush_rewrite_rules();
 	}
 }
