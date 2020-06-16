@@ -20,7 +20,7 @@
  * Requires PHP:      7.3
  * Author:            Ambikesh Kumar Gautam
  * Author URI:        https://github.com/ambikeshkumargautam-cedcoss
- * Text Domain:       plugin-slug
+ * Text Domain:       HelloWorld
  * License:           GPL v2 or later
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  */

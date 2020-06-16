@@ -7,7 +7,7 @@
  */
 
 
-class Pluginsdev_Activate {
+class HelloWorld_Activate {
 	/**
 	 * This function will activation for the plugins
 	 *
