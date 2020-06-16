@@ -1,18 +1,18 @@
 <?php
 /**
- * Myplugins-dev
+ * HelloWorld
  *
- * @package           Pluginsdev
+ * @package           HelloWorld
  * @author            Ambikesh kumar Gautam
  * @copyright         2020 Cedcoss PVT LKO
  * @license           GPL-2.0-or-later
  */
 
 /**
- * Myplugins-dev
+ * HelloWorld
  *
  * @wordpress-plugin
- * Plugin Name:       Pluginsdev
+ * Plugin Name:       HelloWorld
  * Plugin URI:        https://github.com/ambikeshkumargautam-cedcoss/WordPress-theme-development/tree/master/public/wp-content/plugins/pluginsdev
  * Description:       This Plugins is about making our own plugins in WordPress.
  * Version:           1.0.0
@@ -50,39 +50,64 @@ if ( ! defined( 'WPINC' ) ) {
  */
 define( 'PLUGINSDEV_VERSION', '1.0.0' );
 /**
- * Register the "book" custom post type
+ * Comment of this class here...
  */
-function pluginprefix_setup_post_type() {
-	register_post_type(
-		'mobile',
-		array(
-			'public' => true,
-			'label'  => 'Mobile',
-		)
-	);
+final class HelloWorld {
+	/**
+	 * Activate the plugin.
+	 */
+	public function __construct() {
+		add_action( 'init', array( $this, 'custom_post_type' ) );
+	}
+	/**
+	 * Comment of this class here...
+	 *
+	 * @param string $string this will recieve a messege which is comming form the created object .
+	 */
+	/**
+	 * Activate the plugin.
+	 */
+	public function custom_post_type() {
+		register_post_type(
+			'music',
+			array(
+				'public' => true,
+				'label'  => 'Music',
+
+			)
+		);
+	}
+	/**
+	 * Activate the plugin.
+	 */
+	public function activate() {
+		// Generated a CTP .
+		$this->custom_post_type();
+		// Flush rewrite rules.
+	}
+	/**
+	 * Activate the plugin.
+	 */
+	public function deactivate() {
+		// Flush rewrite rules .
+	}
+	/**
+	 * Activate the plugin .
+	 */
+	public function uninstall() {
+		// Delete custom post type .
+		// Delete  all the data from the DataBase .
+	}
 
 }
-add_action( 'init', 'pluginprefix_setup_post_type' );
 
-/**
- * Activate the plugin.
- */
-function pluginprefix_activate() {
-	// Trigger our function that registers the custom post type plugin.
-	pluginprefix_setup_post_type();
+if ( class_exists( 'HelloWorld' ) ) { // If this class exists then create a instance of this class .
+	$helloworld = new HelloWorld( 'initialzation' ); // Instance of the class .
 
-	// Clear the permalinks after the post type has been registered.
-	flush_rewrite_rules();
 }
-register_activation_hook( __FILE__, 'pluginprefix_activate' );
-/**
- * Deactivation hook.
- */
-function pluginprefix_deactivate() {
-	// Unregister the post type, so the rules are no longer in memory.
-	unregister_post_type( 'mobile' );
-	// Clear the permalinks to remove our post type's rules from the database.
-	flush_rewrite_rules();
-}
-register_deactivation_hook( __FILE__, 'pluginprefix_deactivate' );
 
+// Activation  .
+register_activation_hook( __FILE__, array( $helloworld, 'activate' ) );
+// Deactivation .
+register_deactivation_hook( __FILE__, array( $helloworld, 'deactivate' ) );
+// Uninstall .
