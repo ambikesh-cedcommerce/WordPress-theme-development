@@ -78,10 +78,10 @@ register_uninstall_hook( __FILE__, 'pluginprefix_function_to_run' );
  * @return void
  */
 function helloworld_activation() {
-	add_option( 'installed_on' );
+	add_option( 'installed_on', time() );
 }
 /**
- * HellWord_deactivation function activate plugins .
+ * HellWord_deactivation function deactivate plugins .
  *
  * @return void
  */
