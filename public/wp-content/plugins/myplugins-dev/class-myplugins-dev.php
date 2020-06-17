@@ -94,6 +94,7 @@ final class Myplugins_Dev {
 }
 
 if ( class_exists( 'Myplugins_Dev' ) ) { // If this class exists then create a instance of this class .
+
 	$myplugins_dev = new Myplugins_Dev( 'initialzation' ); // Instance of the class .
 }
 
@@ -102,4 +103,5 @@ register_activation_hook( __FILE__, array( $myplugins_dev, 'activate' ) );
 // Deactivation .
 register_deactivation_hook( __FILE__, array( $myplugins_dev, 'deactivate' ) );
 // Uninstall .
+register_uninstall_hook( __FILE__, array( $myplugins_dev, 'uninstall' ) );
 

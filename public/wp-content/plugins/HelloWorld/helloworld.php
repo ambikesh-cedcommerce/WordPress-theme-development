@@ -72,3 +72,18 @@ function pluginprefix_deactivate() {
 register_deactivation_hook( __FILE__, 'pluginprefix_deactivate' );
 // Uninstall Plugin .
 register_uninstall_hook( __FILE__, 'pluginprefix_function_to_run' );
+
+add_filter( 'the_content', 'filter_the_content_in_the_main_loop', 1 );
+
+/**
+ * Filter the content of blogposts .
+ */
+function filter_the_content_in_the_main_loop( $content ) {
+	// Check if we're inside the main loop in a single Post.
+	if ( is_single() ) {
+		$content = '<div style="color:red; background-color:#1d525c;">'. $content . '</div><a href="https://twitter.com/login/error?redirect_after_login=%2F" class="fa fa-twitter">Twitter</a>';
+		return $content;
+	}
+
+			return $content;
+}

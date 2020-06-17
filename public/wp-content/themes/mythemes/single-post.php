@@ -1,1 +1,0 @@
-<h1>single-post.php</h1>
