@@ -73,17 +73,21 @@ register_deactivation_hook( __FILE__, 'pluginprefix_deactivate' );
 // Uninstall Plugin .
 register_uninstall_hook( __FILE__, 'pluginprefix_function_to_run' );
 
-add_filter( 'the_content', 'filter_the_content_in_the_main_loop', 1 );
-
 /**
- * Filter the content of blogposts .
+ * Filter Hook for content of blogposts(single posts) .
+ *
+ * @param string $content .
  */
 function filter_the_content_in_the_main_loop( $content ) {
-	// Check if we're inside the main loop in a single Post.
+	// Check if we're  in a single Post.
 	if ( is_single() ) {
-		$content = '<div style="color:red; background-color:#1d525c;">'. $content . '</div><a href="https://twitter.com/login/error?redirect_after_login=%2F" class="fa fa-twitter">Twitter</a>';
+		$content = '<div style="color:black; background-color:#28a8a2;">'. $content . '</div><a href="https://twitter.com/login/error?redirect_after_login=%2F" class="fa fa-twitter">Twitter</a>';
+
+		echo esc_html( str_word_count( $content ) );
 		return $content;
 	}
 
-			return $content;
+			return $content; // Returning all content.
 }
+// Add filter for content .
+add_filter( 'the_content', 'filter_the_content_in_the_main_loop' );
