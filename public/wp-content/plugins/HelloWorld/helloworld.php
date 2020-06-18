@@ -97,9 +97,72 @@ add_filter( 'the_content', 'filter_the_content_in_the_main_loop' );
 /**
  * Adding custom setting .
  *
- * @internal never define functions inside callbacks.
- * these functions could be run multiple times; this would result in a fatal error.
+ * @internal Adding custom settings in the admin pannel.
+ * Adding settings menu in the admin page for custom settings .
  */
+	/**
+	 * WordPress Menus API.
+	 */
+function add_new_menu_items() {
+		// add top level menu page i.e , this menu item have can have sub menus .
+		add_menu_page(
+			'WPOrg', // Required. (string $page_title) Text heading of the page that displayed on the top of the Page(Heading) .
+			'WPOrg Name', // Required. (string $menu_title) Text to be displayed in the menu .
+			'manage_options', // Required . (string $capability) The required capability of users to access this menu item .
+			'wporg', // Required. ( string $menu_slug ) A unique identifier to identify this menu item (which is slug of the page).
+			'wporg_options_page_html' // (callable $function ) Optional . The URL to the menu item icon .
+		);
+}
+
+		/**
+		* Register our wporg_options_page to the admin_menu action hook
+		*/
+			add_action( 'admin_menu', 'add_new_menu_items' );
+
+/**
+ * Top level menu:
+ * callback functions
+ */
+function wporg_options_page_html() {
+			// check user capabilities.
+	if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+	}
+
+		// add error/update messages .
+
+		// check if the user have submitted the settings
+		// WordPress will add the "settings-updated" $_GET parameter to the url .
+	if ( isset( $_GET['settings-updated'] ) ) {
+			// Add settings saved message with the class of "updated".
+			add_settings_error( 'wporg_messages', 'wporg_message', __( 'Settings Saved', 'wporg' ), 'updated' );
+	}
+
+		// show error/update messages.
+		settings_errors( 'wporg_messages' );
+	?>
+		<div class="wrap">
+		<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
+		<form action="options.php" method="post">
+		<?php
+		// output security fields for the registered setting "wporg".
+		// Prints the input field with names 'wponce', 'action' and 'option_page' in formsection of setting page .
+		// The 'wporg' is the settings group name , which should match the group name used in register_setting().
+		// The add_settings_section callback is displayed here . for every new section we need to call settings_fields .
+		settings_fields( 'wporg' );
+
+		// output setting sections and their fields
+		// (sections are registered for "wporg", each field is registered to a specific section).
+		// Prints out heading (h2) and a table with all settings sections inside the form section of the settings page .
+		// 'wporg' is the slug name o fthe page whose settings sectiosn you want to output .
+		do_settings_sections( 'wporg' );
+		// Add the submit button to serialize the options.
+		submit_button( 'Save Changes' );
+		?>
+		</form>
+		</div>
+		<?php
+}
 
 /**
  * Custom option and settings
@@ -110,16 +173,16 @@ function wporg_settings_init() {
 
 	// register a new section in the "wporg" page .
 	add_settings_section(
-		'wporg_section_developers', // Id .
-		__( 'The Matrix has you.', 'wporg' ), // Title .
+		'wporg_section_developers', // Id of add_settings_section .
+		__( 'The Matrix has you.', 'wporg' ), // Page heading.
 		'wporg_section_developers_cb', // call back functions .
-		'wporg' // $page .
+		'wporg' // $page (page identifier).
 	);
 
 	// register a new field in the "wporg_section_developers" section, inside the "wporg" page .
 	add_settings_field(
 		'wporg_field_pill', // Id .
-		// use $args' label_for to populate the id inside the callback.
+		// use $args' label_for to populate the id inside the callback .
 		__( 'Pill', 'wporg' ), // Title of setting field .
 		'wporg_field_pill_cb', // Callback function .
 		'wporg', // $page .
@@ -130,6 +193,7 @@ function wporg_settings_init() {
 			'wporg_custom_data' => 'custom',
 		)
 	);
+
 }
 
 	/**
@@ -195,63 +259,5 @@ function wporg_field_pill_cb( $args ) {
 	<p class="description">
 	<?php esc_html_e( 'You take the red pill and you stay in Wonderland and I show you how deep the rabbit-hole goes.', 'wporg' ); ?>
 	</p>
-	<?php
-}
-
-	/**
-	 * Top level menu.
-	 */
-function wporg_options_page() {
-	// add top level menu page .
-	add_menu_page(
-		'WPOrg',
-		'WPOrg Options',
-		'manage_options',
-		'wporg',
-		'wporg_options_page_html'
-	);
-}
-
-	/**
-	* Register our wporg_options_page to the admin_menu action hook
-	*/
-		add_action( 'admin_menu', 'wporg_options_page' );
-
-	/**
-	 * Top level menu:
-	 * callback functions
-	 */
-function wporg_options_page_html() {
-		// check user capabilities.
-	if ( ! current_user_can( 'manage_options' ) ) {
-		return;
-	}
-
-	// add error/update messages .
-
-	// check if the user have submitted the settings
-	// WordPress will add the "settings-updated" $_GET parameter to the url .
-	if ( isset( $_GET['settings-updated'] ) ) {
-		// Add settings saved message with the class of "updated".
-		add_settings_error( 'wporg_messages', 'wporg_message', __( 'Settings Saved', 'wporg' ), 'updated' );
-	}
-
-	// show error/update messages.
-	settings_errors( 'wporg_messages' );
-	?>
-	<div class="wrap">
-	<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
-	<form action="options.php" method="post">
-	<?php
-	// output security fields for the registered setting "wporg".
-	settings_fields( 'wporg' );
-	// output setting sections and their fields
-	// (sections are registered for "wporg", each field is registered to a specific section).
-	do_settings_sections( 'wporg' );
-	// output save settings button.
-	submit_button( 'Save Settings' );
-	?>
-	</form>
-	</div>
 	<?php
 }
