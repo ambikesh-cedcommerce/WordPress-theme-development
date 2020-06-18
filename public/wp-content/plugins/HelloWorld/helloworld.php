@@ -55,7 +55,7 @@ define( 'PLUGINSDEV_VERSION', '1.0.0' );
 function pluginprefix_activate() {
 	// Clear the permalinks after the post type has been registered.
 	flush_rewrite_rules();
-	add_option( 'installed_on', current_datetime() );
+	add_option( 'installed_on', time() );
 }
 register_activation_hook( __FILE__, 'pluginprefix_activate' );
 
@@ -73,6 +73,7 @@ register_deactivation_hook( __FILE__, 'pluginprefix_deactivate' );
 // Uninstall Plugin .
 register_uninstall_hook( __FILE__, 'pluginprefix_function_to_run' );
 
+// ====================================Twitter link and Number of characters =====================
 /**
  * Filter Hook for content of blogposts(single posts) .
  *
@@ -81,13 +82,15 @@ register_uninstall_hook( __FILE__, 'pluginprefix_function_to_run' );
 function filter_the_content_in_the_main_loop( $content ) {
 	// Check if we're  in a single Post.
 	if ( is_single() ) {
-		$content = '<div style="color:black; background-color:#28a8a2;">'. $content . '</div><a href="https://twitter.com/login/error?redirect_after_login=%2F" class="fa fa-twitter">Twitter</a>';
-
-		echo esc_html( str_word_count( $content ) );
+		$content = $content . '<p><a href= "https://twitter.com/login/error?redirect_after_login=%2F . urlencode( get_the_permalink() )">Twitter</a></p>';
+		// No of character in the Blogpost .
+		$content .= '<h5>There are ' . esc_html( str_word_count( $content ) ) . ' Characters</h5>';
 		return $content;
 	}
 
-			return $content; // Returning all content.
+			return $content; // Returning all content of blog listing page .
 }
 // Add filter for content .
 add_filter( 'the_content', 'filter_the_content_in_the_main_loop' );
+
+// ==================================== End Here Twitter link and Number of characters =====================
