@@ -110,7 +110,9 @@ function add_new_menu_items() {
 			'WPOrg Name', // Required. (string $menu_title) Text to be displayed in the menu .
 			'manage_options', // Required . (string $capability) The required capability of users to access this menu item .
 			'wporg', // Required. ( string $menu_slug ) A unique identifier to identify this menu item (which is slug of the page).
-			'wporg_options_page_html' // (callable $function ) Optional . The URL to the menu item icon .
+			'wporg_options_page_html', // ( callable $function ) which will call this function .
+			'' // Optional . The URL to the menu item icon .
+			// Privority  of the menu section where it will be show in the admin panel .
 		);
 }
 
@@ -157,7 +159,7 @@ function wporg_options_page_html() {
 		// 'wporg' is the slug name o fthe page whose settings sectiosn you want to output .
 		do_settings_sections( 'wporg' );
 		// Add the submit button to serialize the options.
-		submit_button( 'Save Changes' );
+		submit_button( 'Change setting' );
 		?>
 		</form>
 		</div>
@@ -167,10 +169,15 @@ function wporg_options_page_html() {
 /**
  * Custom option and settings
  */
-function wporg_settings_init() {
-	// register a new setting for "wporg" page .
+function display_the_options_init_settings() {
+	// Register the setting for add_settings_field()
+	// "wporg" setting group name same as define in add_settings_field() and setting_field().
+	// "wporg_options" is the id attributes of the input field of table with name wporg_options .
 	register_setting( 'wporg', 'wporg_options' );
-
+	// Adds a new input section to the setting page .
+	// wporg is the value of the hidden input field with than option_page.
+	// wporg_section_developers_cb is a callback function that prints the description of setting page .
+	// 'wporg' is slug name of the page whose settings sections you want to output .
 	// register a new section in the "wporg" page .
 	add_settings_section(
 		'wporg_section_developers', // Id of add_settings_section .
@@ -185,7 +192,7 @@ function wporg_settings_init() {
 		// use $args' label_for to populate the id inside the callback .
 		__( 'Pill', 'wporg' ), // Title of setting field .
 		'wporg_field_pill_cb', // Callback function .
-		'wporg', // $page .
+		'wporg', // $page ( page indentifeir ) .
 		'wporg_section_developers', // section default .
 		array( // Arguments .
 			'label_for'         => 'wporg_field_pill',
@@ -193,13 +200,35 @@ function wporg_settings_init() {
 			'wporg_custom_data' => 'custom',
 		)
 	);
+		// register a new section in the "wporg" page .
+		add_settings_section(
+			'wporg_section_developers_two', // Id of add_settings_section .
+			__( 'This is new second section.', 'wporg' ), // Page heading.
+			'wporg_section_developers_cd_two', // call back functions .
+			'wporg' // $page (page identifier).
+		);
+
+		// register a new field in the "wporg_section_developers" section, inside the "wporg" page .
+		add_settings_field(
+			'wporg_field_pill_two', // Id .
+			// use $args' label_for to populate the id inside the callback .
+			__( 'Pill_Two', 'wporg' ), // Title of setting field .
+			'wporg_field_pill_cb_two', // Callback function .
+			'wporg', // $page .
+			'wporg_section_developers_two', // section default .
+			array( // Arguments .
+				'label_for'         => 'wporg_field_pill',
+				'class'             => 'wporg_row',
+				'wporg_custom_data' => 'custom',
+			)
+		);
 
 }
 
 	/**
 	* Register our wporg_settings_init to the admin_init action hook
 	*/
-	add_action( 'admin_init', 'wporg_settings_init' );
+	add_action( 'admin_init', 'display_the_options_init_settings' );
 
 	/**
 	 * Custom option and settings :
@@ -222,7 +251,17 @@ function wporg_section_developers_cb( $args ) {
 	<p id="<?php echo esc_attr( $args['id'] ); ?>"><?php esc_html_e( 'Follow the white rabbit.', 'wporg' ); ?></p>
 	<?php
 }
-
+/**
+ * This function will show out of developers sections.
+ *
+ * @param string $args .
+ * @return void
+ */
+function wporg_section_developers_cd_two( $args ) {
+	?>
+	<p id="<?php echo esc_attr( $args['id'] ); ?>"><?php esc_html_e( 'Follow the white rabbit.', 'wporg' ); ?></p>
+	<?php
+}
 	// pill field cb.
 
 	// field callbacks can accept an $args parameter, which is an array.
@@ -260,4 +299,34 @@ function wporg_field_pill_cb( $args ) {
 	<?php esc_html_e( 'You take the red pill and you stay in Wonderland and I show you how deep the rabbit-hole goes.', 'wporg' ); ?>
 	</p>
 	<?php
+}
+	/**
+	 * Show get_option wrong option .
+	 *
+	 * @param string $args .
+	 * @return void
+	 */
+function wporg_field_pill_cb_two( $args ) {
+		// get the value of the setting we've registered with register_setting().
+		$options = get_option( 'wporg_options' );
+		// output the field.
+	?>
+		<select id="<?php echo esc_attr( $args['label_for'] ); ?>"
+		data-custom="<?php echo esc_attr( $args['wporg_custom_data'] ); ?>"
+		name="wporg_options[<?php echo esc_attr( $args['label_for'] ); ?>]"
+		>
+		<option value="red" <?php echo isset( $options[ $args['label_for'] ] ) ? ( selected( $options[ $args['label_for'] ], 'red', false ) ) : ( '' ); ?>>
+		<?php esc_html_e( 'red pill', 'wporg' ); ?>
+		</option>
+		<option value="blue" <?php echo isset( $options[ $args['label_for'] ] ) ? ( selected( $options[ $args['label_for'] ], 'blue', false ) ) : ( '' ); ?>>
+		<?php esc_html_e( 'blue pill', 'wporg' ); ?>
+		</option>
+		</select>
+		<p class="description">
+		<?php esc_html_e( 'You take the blue pill and the story ends. You wake in your bed and you believe whatever you want to believe.', 'wporg' ); ?>
+		</p>
+		<p class="description">
+		<?php esc_html_e( 'You take the red pill and you stay in Wonderland and I show you how deep the rabbit-hole goes.', 'wporg' ); ?>
+		</p>
+		<?php
 }
