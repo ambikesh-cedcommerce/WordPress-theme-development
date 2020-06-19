@@ -94,33 +94,46 @@ function filter_the_content_in_the_main_loop( $content ) {
 add_filter( 'the_content', 'filter_the_content_in_the_main_loop' );
 
 // ==================================== Add Custom settings  ===================================================
+
 /**
- * Adding custom setting .
- *
- * @internal Adding custom settings in the admin pannel.
- * Adding settings menu in the admin page for custom settings .
+* Register our wporg_options_page to the admin_menu action hook
+*/
+	add_action( 'admin_menu', 'add_new_menu_items' );
+
+/**
+ * WordPress Menus API.
  */
-	/**
-	 * WordPress Menus API.
-	 */
 function add_new_menu_items() {
 		// add top level menu page i.e , this menu item have can have sub menus .
 		add_menu_page(
 			'WPOrg', // Required. (string $page_title) Text heading of the page that displayed on the top of the Page(Heading) .
-			'WPOrg Name', // Required. (string $menu_title) Text to be displayed in the menu .
+			'WPOrg', // Required. (string $menu_title) Text to be displayed in the menu .
 			'manage_options', // Required . (string $capability) The required capability of users to access this menu item .
 			'wporg', // Required. ( string $menu_slug ) A unique identifier to identify this menu item (which is slug of the page).
 			'wporg_options_page_html', // ( callable $function ) which will call this function .
 			'' // Optional . The URL to the menu item icon .
 			// Privority  of the menu section where it will be show in the admin panel .
 		);
+		add_submenu_page(
+			'wporg',
+			'Hello worldsettings',
+			'Hello worldsettings',
+			'manage_options',
+			'layout_desplay_fun',
+			'hellowordl_display_fun'
+		);
 }
-
-		/**
-		* Register our wporg_options_page to the admin_menu action hook
-		*/
-			add_action( 'admin_menu', 'add_new_menu_items' );
-
+/**
+ * Helloworld display function is submenu page layout it will return all the content on the submenu.
+ * using register fuctions .
+ *
+ * @return void
+ */
+function hellowordl_display_fun() {
+	?>
+	<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
+<?php 
+}
 /**
  * Top level menu:
  * callback functions
