@@ -110,29 +110,11 @@ function add_new_menu_items() {
 			'WPOrg', // Required. (string $menu_title) Text to be displayed in the menu .
 			'manage_options', // Required . (string $capability) The required capability of users to access this menu item .
 			'wporg', // Required. ( string $menu_slug ) A unique identifier to identify this menu item (which is slug of the page).
-			'wporg_options_page_html', // ( callable $function ) which will call this function .
+			'wporg_options_page_html', // ( callable $function ) this will show all the content on the page .
 			'' // Optional . The URL to the menu item icon .
 			// Privority  of the menu section where it will be show in the admin panel .
 		);
-		add_submenu_page(
-			'wporg',
-			'Hello worldsettings',
-			'Hello worldsettings',
-			'manage_options',
-			'layout_desplay_fun',
-			'hellowordl_display_fun'
-		);
-}
-/**
- * Helloworld display function is submenu page layout it will return all the content on the submenu.
- * using register fuctions .
- *
- * @return void
- */
-function hellowordl_display_fun() {
-	?>
-	<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
-<?php 
+
 }
 /**
  * Top level menu:
@@ -153,7 +135,7 @@ function wporg_options_page_html() {
 			add_settings_error( 'wporg_messages', 'wporg_message', __( 'Settings Saved', 'wporg' ), 'updated' );
 	}
 
-		// show error/update messages.
+		// show error/update messages. on the top of the page .
 		settings_errors( 'wporg_messages' );
 	?>
 		<div class="wrap">
@@ -166,12 +148,16 @@ function wporg_options_page_html() {
 		// The add_settings_section callback is displayed here . for every new section we need to call settings_fields .
 		settings_fields( 'wporg' );
 
+		// do_settings_sections is called add_settings_field() function here
 		// output setting sections and their fields
 		// (sections are registered for "wporg", each field is registered to a specific section).
 		// Prints out heading (h2) and a table with all settings sections inside the form section of the settings page .
 		// 'wporg' is the slug name o fthe page whose settings sectiosn you want to output .
 		do_settings_sections( 'wporg' );
 		// Add the submit button to serialize the options.
+		?>
+		<label>Setting One:<input type="text" name="hellworld_option" value="<?php echo esc_html( get_option( 'helloword_option' ) ); ?>"/></label>
+		<?php
 		submit_button( 'Change setting' );
 		?>
 		</form>
@@ -184,10 +170,10 @@ function wporg_options_page_html() {
  */
 function display_the_options_init_settings() {
 	// Register the setting for add_settings_field()
-	// "wporg" setting group name same as define in add_settings_field() and setting_field().
+	// "swporg" setting group name same as define in add_settings_field() and setting_field().
 	// "wporg_options" is the id attributes of the input field of table with name wporg_options .
 	register_setting( 'wporg', 'wporg_options' );
-	// Adds a new input section to the setting page .
+	// Adds a new [Hidden input fieid with class] .
 	// wporg is the value of the hidden input field with than option_page.
 	// wporg_section_developers_cb is a callback function that prints the description of setting page .
 	// 'wporg' is slug name of the page whose settings sections you want to output .
@@ -199,21 +185,32 @@ function display_the_options_init_settings() {
 		'wporg' // $page (page identifier).
 	);
 
-	// register a new field in the "wporg_section_developers" section, inside the "wporg" page .
+	// Setting name, dispaly name , callback to print from element , page in which field in displayed , section to which it belongs.
+	// last field section is optional.
+	// Add a setting field to a settings page and section by creating a table with heading that will be display no settng page
+	// 'wporg_field_pill' is the id attribute of input field of table with name 'wporg_field_pill'.
+	// '__( 'Pill', 'wporg' ), is title of the input field of table with name __( 'Pill', 'wporg' ), .
+	// 'wporg_field_pill_cb' is callback function that prints the input field with name Pill .
+	// 'wporg' is the slug name of the page whose settings sections you want to output.
+	// 'wporg_section_developers' is the Group name , which should match the group name used in settings_fields().
 	add_settings_field(
 		'wporg_field_pill', // Id .
 		// use $args' label_for to populate the id inside the callback .
 		__( 'Pill', 'wporg' ), // Title of setting field .
 		'wporg_field_pill_cb', // Callback function .
 		'wporg', // $page ( page indentifeir ) .
-		'wporg_section_developers', // section default .
+		'wporg_section_developers', // section default group name .
 		array( // Arguments .
 			'label_for'         => 'wporg_field_pill',
 			'class'             => 'wporg_row',
 			'wporg_custom_data' => 'custom',
 		)
 	);
-		// register a new section in the "wporg" page .
+	// Adds a new [Hidden input fieid with class] .
+	// wporg is the value of the hidden input field with than option_page.
+	// wporg_section_developers_cb is a callback function that prints the description of setting page .
+	// 'wporg' is slug name of the page whose settings sections you want to output .
+	// register a new section in the "wporg" page ..
 		add_settings_section(
 			'wporg_section_developers_two', // Id of add_settings_section .
 			__( 'This is new second section.', 'wporg' ), // Page heading.
