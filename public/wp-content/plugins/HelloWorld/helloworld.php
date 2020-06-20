@@ -340,3 +340,76 @@ function wporg_field_pill_cb_two( $args ) {
 		</p>
 		<?php
 }
+// ==================================== Register Custom Post type  ===================================================
+/**
+ * This function will show all the content of the CUSTOM POST TYPE .
+ *
+ * @return void
+ */
+/**
+ * Register a custom post type called "book".
+ *
+ * @see get_post_type_labels() for label keys.
+ */
+function wpdocs_codex_book_init() {
+	$labels = array(
+		'name'                  => _x( 'Global News', 'Post type general name', 'textdomain' ), // which will apear in the top of the page .
+		'singular_name'         => _x( 'News', 'Post type singular name', 'textdomain' ),
+		'menu_name'             => _x( 'News', 'Admin Menu text', 'textdomain' ),
+		'name_admin_bar'        => _x( 'News', 'Add New on Toolbar', 'textdomain' ),
+		'add_new'               => __( 'Add News', 'textdomain' ),
+		'add_new_item'          => __( 'Add New Global News', 'textdomain' ),
+		'new_item'              => __( 'New news', 'textdomain' ),
+		'edit_item'             => __( 'Edit news', 'textdomain' ),
+		'view_item'             => __( 'View news', 'textdomain' ),
+		'all_items'             => __( 'All news', 'textdomain' ),
+		'search_items'          => __( 'Search news', 'textdomain' ),
+		'parent_item_colon'     => __( 'Parent news:', 'textdomain' ),
+		'not_found'             => __( 'No News found.', 'textdomain' ),
+		'not_found_in_trash'    => __( 'No News found in Trash.', 'textdomain' ),
+		'featured_image'        => _x( 'News Cover Image', 'Overrides the “Featured Image” phrase for this post type. Added in 4.3', 'textdomain' ),
+		'set_featured_image'    => _x( 'Set cover image', 'Overrides the “Set featured image” phrase for this post type. Added in 4.3', 'textdomain' ),
+		'remove_featured_image' => _x( 'Remove cover image', 'Overrides the “Remove featured image” phrase for this post type. Added in 4.3', 'textdomain' ),
+		'use_featured_image'    => _x( 'Use as cover image', 'Overrides the “Use as featured image” phrase for this post type. Added in 4.3', 'textdomain' ),
+		'archives'              => _x( 'News archives', 'The post type archive label used in nav menus. Default “Post Archives”. Added in 4.4', 'textdomain' ),
+		'insert_into_item'      => _x( 'Insert into book', 'Overrides the “Insert into post”/”Insert into page” phrase (used when inserting media into a post). Added in 4.4', 'textdomain' ),
+		'uploaded_to_this_item' => _x( 'Uploaded to this book', 'Overrides the “Uploaded to this post”/”Uploaded to this page” phrase (used when viewing media attached to a post). Added in 4.4', 'textdomain' ),
+		'filter_items_list'     => _x( 'Filter books list', 'Screen reader text for the filter links heading on the post type listing screen. Default “Filter posts list”/”Filter pages list”. Added in 4.4', 'textdomain' ),
+		'items_list_navigation' => _x( 'News list navigation', 'Screen reader text for the pagination heading on the post type listing screen. Default “Posts list navigation”/”Pages list navigation”. Added in 4.4', 'textdomain' ),
+		'items_list'            => _x( 'News list', 'Screen reader text for the items list heading on the post type listing screen. Default “Posts list”/”Pages list”. Added in 4.4', 'textdomain' ),
+	);
+
+	$args = array(
+		'labels'             => $labels,
+		'public'             => true,
+		'publicly_queryable' => true,
+		'show_ui'            => true,
+		'show_in_menu'       => true,
+		'query_var'          => true,
+		'rewrite'            => array( 'slug' => 'news' ),
+		'capability_type'    => 'post',
+		'has_archive'        => true,
+		'hierarchical'       => false,
+		'menu_position'      => null,
+		'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' ),
+	);
+
+	register_post_type( 'news', $args ); // 'news' is Id of cutom post type .
+}
+
+add_action( 'init', 'wpdocs_codex_book_init' );
+
+add_filter( 'template_include', 'hello_news_tamplate' );
+/**
+ * This function will include custom template in the plugin core file .
+ *
+ * @return string $template.
+ */
+function hello_news_tamplate( $template ) {
+	global $post;
+	if ( is_single() && 'news' === $post->post_type ) {
+		$template = plugin_dir_path( __FILE__ ) . 'template/custom-template-news.php';
+	}
+	return $template;
+
+}
