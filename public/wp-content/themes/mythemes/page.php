@@ -15,6 +15,7 @@
  */
 
 get_header(); ?>
+<!-- This condition check Custom theme is customizing a page here in the outside of the admin pannel that is called customize area -->
 <?php if ( get_theme_mod( 'basic-author-callout-display' ) === 'Yes' ) { ?>
 			<div class="row row-padding author">
 				<div class=" col-6 author-image">
@@ -52,7 +53,8 @@ if ( have_posts() ) {
 		<div class="card-body">
 			<h2 class="card-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
 				<div class="entry">
-							<?php the_content(); ?>
+							<?php the_category(); ?>
+							<?php the_content(); ?>							
 						</div>
 						<a href="<?php the_permalink(); ?>" class="btn btn-primary">Read More &rarr;</a>
 					</div>
