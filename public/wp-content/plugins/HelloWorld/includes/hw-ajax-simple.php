@@ -10,10 +10,9 @@
  *
  * @return void
  */
-function example_ajax_request() {
+function helloworld_ajax_action() {
 
-		$nonce = $_REQUEST['nonce'];
-
+		$nonce = ! empty( $_REQUEST['nonce'] );
 	if ( ! wp_verify_nonce( $nonce, 'example-ajax-script' ) ) {
 			echo 'Nonce value cannot be verified by This request.';
 	}
@@ -31,15 +30,31 @@ function example_ajax_request() {
 		// Anything outputted will be returned in the response.
 		echo esc_html_e( $fruit );
 
-		// If you're debugging, it might be useful to see what was sent in the $_REQUEST
-		// print_r($_REQUEST); .
+		// If you're debugging, it might be useful to see what was sent in the $_REQUEST .
 	}
 
 	// Always die in functions echoing ajax content.
 	die();
 }
 // This wp_ajax is only for the logged in users .
-add_action( 'wp_ajax_example_ajax_request', 'example_ajax_request' );
+add_action( 'wp_ajax_helloworld_ajax_action', 'helloworld_ajax_action' );
 
 // If you wanted to also use the function for non-logged in users (in a theme for example) .
-add_action( 'wp_ajax_nopriv_example_ajax_request', 'example_ajax_request' );
+add_action( 'wp_ajax_nopriv_helloworld_ajax_action', 'helloworld_ajax_action' );
+
+/**
+ * Undocumented function
+ *
+ * @return void
+ */
+function show_output_action() {
+	if ( isset( $_REQUEST ) ) {
+		$cloths = $_REQUEST['cloths'];
+		if ( 'shirt' === $cloths ) {
+			$cloths = 'This is t-shirt';
+		}
+		echo $cloths;
+	}
+	die();
+}
+add_action( 'wp_ajax_show_output_action', 'show_output_action' );

@@ -5,11 +5,11 @@ jQuery(document).ready(function($) {
 
     // This does the ajax request
     $.ajax({
-        url: example_ajax_obj.ajaxurl, // url of the file where it will request
+        url: helloworld_ajax_obj.ajaxurl, // url of the file where it will request
         data: {
-            'action': 'example_ajax_request', // 'example_ajax_request' is functions name which will recieve these values .
+            'action': 'helloworld_ajax_action', // 'example_ajax_request' is functions name which will recieve these values .
             'fruit': fruit, // Noraml value which key fruit.
-            'nonce': example_ajax_obj.nonce // object name which has been declared while localizing script .
+            'nonce': helloworld_ajax_obj.nonce // object name which has been declared while localizing script .
         },
         success: function(response) {
             // This outputs the result of the ajax request

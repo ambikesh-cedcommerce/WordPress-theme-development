@@ -140,7 +140,7 @@ function wporg_options_page_html() {
 	?>
 		<div class="wrap">
 		<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
-		<form action="options.php" method="post">
+		<form id="input-admin-form" action="options.php" method="post">
 		<?php
 		// output security fields for the registered setting "wporg".
 		// Prints the input field with names 'wponce', 'action' and 'option_page' in formsection of setting page .
@@ -504,8 +504,8 @@ add_action( 'init', 'wporg_register_taxonomy_course' );
 /**
  * Including example-enqueue-ajax.php in core template of the plugins it enqueue js and localize to send ajax request to the simple-ajax-example.php .
  */
-require_once plugin_dir_path( __FILE__ ) . 'includes/exmple-enqueue-ajax.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/helloworld-enqueue-ajax.php';
 /**
  * Including simple-ajax-example.php in core template of the plugins it is responsible to handle ajax request and send response to this .
  */
-require_once plugin_dir_path( __FILE__ ) . 'includes/simple-ajax-example.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/hw-ajax-simple.php';
