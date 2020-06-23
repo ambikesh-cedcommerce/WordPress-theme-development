@@ -156,7 +156,6 @@ function wporg_options_page_html() {
 		do_settings_sections( 'wporg' );
 		// Add the submit button to serialize the options.
 		?>
-		<label>Setting One:<input type="text" name="hellworld_option" value="<?php echo esc_html( get_option( 'helloword_option' ) ); ?>"/></label>
 		<?php
 		submit_button( 'Change setting' );
 		?>
@@ -173,39 +172,7 @@ function display_the_options_init_settings() {
 	// "swporg" setting group name same as define in add_settings_field() and setting_field().
 	// "wporg_options" is the id attributes of the input field of table with name wporg_options .
 	register_setting( 'wporg', 'wporg_options' );
-	// Adds a new [Hidden input fieid with class] .
-	// wporg is the value of the hidden input field with than option_page.
-	// wporg_section_developers_cb is a callback function that prints the description of setting page .
-	// 'wporg' is slug name of the page whose settings sections you want to output .
-	// register a new section in the "wporg" page .
-	add_settings_section(
-		'wporg_section_developers', // Id of add_settings_section .
-		__( 'The Matrix has you.', 'wporg' ), // Page heading.
-		'wporg_section_developers_cb', // call back functions .
-		'wporg' // $page (page identifier).
-	);
 
-	// Setting name, dispaly name , callback to print from element , page in which field in displayed , section to which it belongs.
-	// last field section is optional.
-	// Add a setting field to a settings page and section by creating a table with heading that will be display no settng page
-	// 'wporg_field_pill' is the id attribute of input field of table with name 'wporg_field_pill'.
-	// '__( 'Pill', 'wporg' ), is title of the input field of table with name __( 'Pill', 'wporg' ), .
-	// 'wporg_field_pill_cb' is callback function that prints the input field with name Pill .
-	// 'wporg' is the slug name of the page whose settings sections you want to output.
-	// 'wporg_section_developers' is the Group name , which should match the group name used in settings_fields().
-	add_settings_field(
-		'wporg_field_pill', // Id .
-		// use $args' label_for to populate the id inside the callback .
-		__( 'Pill', 'wporg' ), // Title of setting field .
-		'wporg_field_pill_cb', // Callback function .
-		'wporg', // $page ( page indentifeir ) .
-		'wporg_section_developers', // section default group name .
-		array( // Arguments .
-			'label_for'         => 'wporg_field_pill',
-			'class'             => 'wporg_row',
-			'wporg_custom_data' => 'custom',
-		)
-	);
 	// Adds a new [Hidden input fieid with class] .
 	// wporg is the value of the hidden input field with than option_page.
 	// wporg_section_developers_cb is a callback function that prints the description of setting page .
@@ -217,7 +184,14 @@ function display_the_options_init_settings() {
 			'wporg_section_developers_cd_two', // call back functions .
 			'wporg' // $page (page identifier).
 		);
-
+		// Setting name, dispaly name , callback to print from element , page in which field in displayed , section to which it belongs.
+		// last field section is optional.
+		// Add a setting field to a settings page and section by creating a table with heading that will be display no settng page
+		// 'wporg_field_pill' is the id attribute of input field of table with name 'wporg_field_pill'.
+		// '__( 'Pill', 'wporg' ), is title of the input field of table with name __( 'Pill', 'wporg' ), .
+		// 'wporg_field_pill_cb' is callback function that prints the input field with name Pill .
+		// 'wporg' is the slug name of the page whose settings sections you want to output.
+		// 'wporg_section_developers' is the Group name , which should match the group name used in settings_fields().
 		// register a new field in the "wporg_section_developers" section, inside the "wporg" page .
 		add_settings_field(
 			'wporg_field_pill_two', // Id .
@@ -232,35 +206,74 @@ function display_the_options_init_settings() {
 				'wporg_custom_data' => 'custom',
 			)
 		);
-
-}
-
 	/**
-	* Register our wporg_settings_init to the admin_init action hook
-	*/
-	add_action( 'admin_init', 'display_the_options_init_settings' );
-
-	/**
-	 * Custom option and settings :
-	 * callback functions
+	 * ============================================
+	 * Facebook link  Sections in WPORG settings.
+	 * ============================================
 	 */
+	// Adds a new [Hidden input fieid with class] .
+	// wporg is the value of the hidden input field with than option_page.
+	// wporg_section_developers_cb is a callback function that prints the description of setting page .
+	// 'wporg' is slug name of the page whose settings sections you want to output .
+	// register a new section in the "wporg" page ..
+	add_settings_section(
+		'wporg_section_facebook_link', // Id of add_settings_section .
+		__( 'Social Media Links ', 'wporg' ), // Page heading.
+		'wporg_section_facebook_display', // call back functions .
+		'wporg' // $page (page identifier).
+	);
+	// Setting name, dispaly name , callback to print from element , page in which field in displayed , section to which it belongs.
+	// last field section is optional.
+	// Add a setting field to a settings page and section by creating a table with heading that will be display no settng page
+	// 'wporg_field_pill' is the id attribute of input field of table with name 'wporg_field_pill'.
+	// '__( 'Pill', 'wporg' ), is title of the input field of table with name __( 'Pill', 'wporg' ), .
+	// 'wporg_field_pill_cb' is callback function that prints the input field with name Pill .
+	// 'wporg' is the slug name of the page whose settings sections you want to output.
+	// 'wporg_section_developers' is the Group name , which should match the group name used in settings_fields().
+	// register a new field in the "wporg_section_developers" section, inside the "wporg" page .
+	add_settings_field(
+		'facebook_link', // Id of dataBase where it storing .
+		// use $args' label_for to populate the id inside the callback .
+		__( 'Facebook link', 'wporg' ), // Title of setting field .
+		'wporg_field_display_inputbox', // Callback function .
+		'wporg', // $page .
+		'wporg_section_facebook_link', // section default .
+		array( // Arguments .
+			'label_for'         => 'facebook_link',
+			'class'             => 'wporg_row',
+			'wporg_custom_data' => 'custom',
+		)
+	);
+	// Setting name, dispaly name , callback to print from element , page in which field in displayed , section to which it belongs.
+	// last field section is optional.
+	// Add a setting field to a settings page and section by creating a table with heading that will be display no settng page
+	// 'wporg_field_pill' is the id attribute of input field of table with name 'wporg_field_pill'.
+	// '__( 'Pill', 'wporg' ), is title of the input field of table with name __( 'Pill', 'wporg' ), .
+	// 'wporg_field_pill_cb' is callback function that prints the input field with name Pill .
+	// 'wporg' is the slug name of the page whose settings sections you want to output.
+	// 'wporg_section_developers' is the Group name , which should match the group name used in settings_fields().
+	// register a new field in the "wporg_section_developers" section, inside the "wporg" page .
+	add_settings_field(
+		'twitter_link', // Id of dataBase where it storing .
+		// use $args' label_for to populate the id inside the callback .
+		__( 'Twitter Link', 'wporg' ), // Title of setting field .
+		'wporg_field_display_inputbox_twitter', // Callback function .
+		'wporg', // $page .
+		'wporg_section_facebook_link', // section default .
+		array( // Arguments .
+			'label_for'         => 'twitter_link',
+			'class'             => 'wporg_row',
+			'wporg_custom_data' => 'custom',
+		)
+	);
 
-	// developers section cb ?
-
-	// section callbacks can accept an $args parameter, which is an array.
-	// $args have the following keys defined: title, id, callback.
-	// the values are defined at the add_settings_section() function.
-/**
- * This function will show out of developers sections.
- *
- * @param string $args .
- * @return void
- */
-function wporg_section_developers_cb( $args ) {
-	?>
-	<p id="<?php echo esc_attr( $args['id'] ); ?>"><?php esc_html_e( 'Follow the white rabbit.', 'wporg' ); ?></p>
-	<?php
 }
+
+/**
+* Register our wporg_settings_init to the admin_init action hook
+*/
+add_action( 'admin_init', 'display_the_options_init_settings' );
+
 /**
  * This function will show out of developers sections.
  *
@@ -272,42 +285,15 @@ function wporg_section_developers_cd_two( $args ) {
 	<p id="<?php echo esc_attr( $args['id'] ); ?>"><?php esc_html_e( 'Follow the white rabbit.', 'wporg' ); ?></p>
 	<?php
 }
-	// pill field cb.
-
-	// field callbacks can accept an $args parameter, which is an array.
-	// $args is defined at the add_settings_field() function.
-	// WordPress has magic interaction with the following keys: label_for, class.
-	// the "label_for" key value is used for the "for" attribute of the <label>.
-	// the "class" key value is used for the "class" attribute of the <tr> containing the field.
-	// you can add custom key value pairs to be used inside your callbacks.
-	/**
-	 * Show get_option wrong option .
-	 *
-	 * @param string $args .
-	 * @return void
-	 */
-function wporg_field_pill_cb( $args ) {
-	// get the value of the setting we've registered with register_setting().
-	$options = get_option( 'wporg_options' );
-	// output the field.
+/**
+ * This function will show out of developers sections.
+ *
+ * @param string $args .
+ * @return void
+ */
+function wporg_section_facebook_display( $args ) {
 	?>
-	<select id="<?php echo esc_attr( $args['label_for'] ); ?>"
-	data-custom="<?php echo esc_attr( $args['wporg_custom_data'] ); ?>"
-	name="wporg_options[<?php echo esc_attr( $args['label_for'] ); ?>]"
-	>
-	<option value="red" <?php echo isset( $options[ $args['label_for'] ] ) ? ( selected( $options[ $args['label_for'] ], 'red', false ) ) : ( '' ); ?>>
-	<?php esc_html_e( 'red pill', 'wporg' ); ?>
-	</option>
-	<option value="blue" <?php echo isset( $options[ $args['label_for'] ] ) ? ( selected( $options[ $args['label_for'] ], 'blue', false ) ) : ( '' ); ?>>
-	<?php esc_html_e( 'blue pill', 'wporg' ); ?>
-	</option>
-	</select>
-	<p class="description">
-	<?php esc_html_e( 'You take the blue pill and the story ends. You wake in your bed and you believe whatever you want to believe.', 'wporg' ); ?>
-	</p>
-	<p class="description">
-	<?php esc_html_e( 'You take the red pill and you stay in Wonderland and I show you how deep the rabbit-hole goes.', 'wporg' ); ?>
-	</p>
+	<p id="<?php echo esc_attr( $args['id'] ); ?>"><?php esc_html_e( 'Add You links here to link in the bottum of the page.', 'wporg' ); ?></p>
 	<?php
 }
 	/**
@@ -340,6 +326,35 @@ function wporg_field_pill_cb_two( $args ) {
 		</p>
 		<?php
 }
+	/**
+	 * Show input Box for input Facebook link here .
+	 *
+	 * @param string $args .
+	 * @return void
+	 */
+function wporg_field_display_inputbox( $args ) {
+
+	?>
+	<textarea id="<?php echo esc_attr( $args['label_for'] ); ?>"  
+	name="wporg_options[<?php echo esc_attr( $args['label_for'] ); ?>]">
+	</textarea>
+	<?php
+
+}
+	/**
+	 * Show input Box for input Facebook link here .
+	 *
+	 * @param string $args .
+	 * @return void
+	 */
+function wporg_field_display_inputbox_twitter( $args ) {
+	?>
+	<textarea id="<?php echo esc_attr( $args['label_for'] ); ?>"  
+	name="wporg_options[<?php echo esc_attr( $args['label_for'] ); ?>]">
+	</textarea>
+	<?php
+}
+
 // ==================================== Register Custom Post type  ===================================================
 /**
  * This function will show all the content of the CUSTOM POST TYPE .
@@ -485,3 +500,12 @@ function wporg_register_taxonomy_course() {
 add_action( 'init', 'wporg_register_taxonomy_course' );
 
 // ============================================================================================================ .
+
+/**
+ * Including example-enqueue-ajax.php in core template of the plugins it enqueue js and localize to send ajax request to the simple-ajax-example.php .
+ */
+require_once plugin_dir_path( __FILE__ ) . 'includes/exmple-enqueue-ajax.php';
+/**
+ * Including simple-ajax-example.php in core template of the plugins it is responsible to handle ajax request and send response to this .
+ */
+require_once plugin_dir_path( __FILE__ ) . 'includes/simple-ajax-example.php';
