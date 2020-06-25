@@ -46,7 +46,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 /**
  * Currently plugin version.
- * Start at version 1.0.0 and use SemVer - https://semver.org
+ * Start at version 1.0.0 and use SemVer - https://semver.org.
  */
 define( 'PLUGINSDEV_VERSION', '1.0.0' );
 /**
@@ -81,7 +81,8 @@ register_uninstall_hook( __FILE__, 'pluginprefix_function_to_run' );
  */
 function filter_the_content_in_the_main_loop( $content ) {
 	// Check if we're  in a single Post.
-	if ( is_single() ) {
+	$post = '2200';
+	if ( ! is_single( $post ) ) {
 		$content = $content . '<p><a href= "https://twitter.com/login/error?redirect_after_login=%2F . urlencode( get_the_permalink() )">Twitter</a></p>';
 		// No of character in the Blogpost .
 		$content .= '<h5>There are ' . esc_html( str_word_count( $content ) ) . ' Characters</h5>';
@@ -92,6 +93,43 @@ function filter_the_content_in_the_main_loop( $content ) {
 }
 // Add filter for content .
 add_filter( 'the_content', 'filter_the_content_in_the_main_loop' );
+
+// ======================================================= Feedback Form ======================================
+/**
+ * This functin is add_feedback_form in the specific post .
+ *
+ * @param string $content reciving all content .
+ *
+ * @return string $content .
+ */
+function add_feeback_form( $content ) {
+	// check this is single page then show othewise don't show .
+	// post is where it will only show.
+	if ( is_single( '2200' ) ) {
+		$output = '<h4> Feedback here....</h4>
+		<div class="container" border-style="1px solid">
+	  
+			<label for="fname">First Name</label>
+			<input type="text" id="fname" name="firstname"  placeholder="Your name.." class= "regular-text"><br>
+		
+			<label for="email">Your Email</label>
+			<input type="text" id="email-a" name="email" placeholder="Your Email name.." class= "regular-text"><br>
+
+			<label for="feedback"> Feedback</label>
+			<textarea id="feed_bk" name="feedback" class= "regular-text" placeholder="Write something.." style="height:50px"></textarea><br>
+		
+			<input id = "submit" type="submit" value="Submit">
+		
+		
+	   </div>
+		';
+
+	}
+	return $output . $content;
+}
+
+add_filter( 'the_content', 'add_feeback_form' );
+
 
 // ==================================== Add Custom settings  ===================================================
 
@@ -130,6 +168,7 @@ function wporg_options_page_html() {
 
 		// check if the user have submitted the settings
 		// WordPress will add the "settings-updated" $_GET parameter to the url .
+
 	if ( isset( $_GET['settings-updated'] ) ) {
 			// Add settings saved message with the class of "updated".
 			add_settings_error( 'wporg_messages', 'wporg_message', __( 'Settings Saved', 'wporg' ), 'updated' );
@@ -502,10 +541,14 @@ add_action( 'init', 'wporg_register_taxonomy_course' );
 // ============================================================================================================ .
 
 /**
- * Including example-enqueue-ajax.php in core template of the plugins it enqueue js and localize to send ajax request to the simple-ajax-example.php .
+ * Including  feedback-enqueue-ajax.php in core template of the plugins it enqueue js and localize to send ajax request to the simple-ajax-example.php .
  */
-require_once plugin_dir_path( __FILE__ ) . 'includes/helloworld-enqueue-ajax.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/feedback-enqueue-ajax.php';
 /**
- * Including simple-ajax-example.php in core template of the plugins it is responsible to handle ajax request and send response to this .
+ * Including feedback-ajax-req-handle.php will handle the request of the ajax .
  */
-require_once plugin_dir_path( __FILE__ ) . 'includes/hw-ajax-simple.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/feedback-ajax-req-handle.php';
+/**
+ * Including feedback post type which is located in the includes folder.
+ */
+require_once plugin_dir_path( __FILE__ ) . 'includes/feedback-post-type.php';
