@@ -434,3 +434,5 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/feedback-ajax-req-handle.ph
 require_once plugin_dir_path( __FILE__ ) . 'includes/feedback-post-type.php';
 // Including short code file in this folder .
 require_once plugin_dir_path( __FILE__ ) . 'includes/short-code.php';
+// Including Metaboxes.
+require_once plugin_dir_path( __FILE__ ) . 'includes/metaboxes.php';
