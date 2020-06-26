@@ -110,7 +110,7 @@ function add_feeback_form( $content ) {
 		<div class="container" border-style="1px solid">
 	  
 			<label for="fname">First Name</label>
-			<input type="text" id="fname" name="firstname"  placeholder="Your name.." class= "regular-text"><br>
+			<input type="text" id="fname" name="firstname"   placeholder="Your name.." class= "regular-text"><br>
 		
 			<label for="email">Your Email</label>
 			<input type="text" id="email-a" name="email" placeholder="Your Email name.." class= "regular-text"><br>
@@ -432,3 +432,5 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/feedback-ajax-req-handle.ph
  * Including feedback post type which is located in the includes folder.
  */
 require_once plugin_dir_path( __FILE__ ) . 'includes/feedback-post-type.php';
+// Including short code file in this folder .
+require_once plugin_dir_path( __FILE__ ) . 'includes/short-code.php';

@@ -1,10 +1,12 @@
 <?php
-// ==================================== Register Custom Post type  ===================================================
 /**
- * This function will show all the content of the CUSTOM POST TYPE .
+ * ====================================
+ * Register Custom Post type
+ * ====================================
  *
- * @return void
+ * @package helloworld
  */
+
 /**
  * Register a custom post type called "book".
  *
