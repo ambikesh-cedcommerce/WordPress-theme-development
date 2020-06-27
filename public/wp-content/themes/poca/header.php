@@ -9,7 +9,14 @@
 
 	<!-- Title -->
 	<title>Poca - Podcast &amp; Audio Template</title>
-	<?php wp_head(); ?>
+	<?php
+	/**
+	 * Tetting header in the top of page .
+	 *
+	 * @package poca
+	 */
+
+	wp_head(); ?>
 	<!-- Favicon -->
 	<link rel="icon" href="./img/core-img/favicon.ico">
 

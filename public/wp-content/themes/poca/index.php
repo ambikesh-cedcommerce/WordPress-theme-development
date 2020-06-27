@@ -1,4 +1,22 @@
-<?php get_header(); ?>
+<?php
+/**
+ * The main template file
+ *
+ * This is the most generic template file in a WordPress theme
+ * and one of the two required files for a theme (the other being style.css).
+ * It is used to display a page when nothing more specific matches a query.
+ * E.g., it puts together the home page when no home.php file exists.
+ *
+ * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
+ *
+ * @package WordPress
+ * @subpackage poca
+ * @since Poca 1.0
+ */
+
+	get_header();
+?>
+
 <!-- ***** Welcome Area Start ***** -->
 	<section class="welcome-area">
 		<!-- Welcome Slides -->
@@ -175,7 +193,6 @@
 
 		<div class="container">
 			<div class="row poca-portfolio">
-
 				<!-- Single gallery Item -->
 				<div class="col-12 col-md-6 single_gallery_item entre wow fadeInUp" data-wow-delay="0.2s">
 					<!-- Welcome Music Area -->
@@ -183,17 +200,23 @@
 						<div class="poca-music-thumbnail">
 							<img src="./img/bg-img/5.jpg" alt="">
 						</div>
+						<?php
+						if ( have_posts() ) {
+							while ( have_posts() ) {
+								the_post();
+								?>
 						<div class="poca-music-content text-center">
-							<span class="music-published-date mb-2">December 9, 2018</span>
-							<h2>Episode 201 - You Don’t Know Squat!</h2>
+							<span class="music-published-date mb-2"><?php the_date(); ?></span>
+							<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
 							<div class="music-meta-data">
-								<p>By <a href="#" class="music-author">Admin</a> | <a href="#" class="music-catagory">Tutorials</a> | <a href="#" class="music-duration">00:02:56</a></p>
+								<p>By <a href="#" class="music-author"><?php the_author_posts_link(); ?></a> | <a href="#" class="music-catagory">Tutorials</a> | <a href="#" class="music-duration"><?php the_time(); ?></a></p>
 							</div>
 							<!-- Music Player -->
 							<div class="poca-music-player">
 								<audio preload="auto" controls>
 									<source src="audio/dummy-audio.mp3">
 								</audio>
+								<?php the_content(); ?>
 							</div>
 							<!-- Likes, Share & Download -->
 							<div class="likes-share-download d-flex align-items-center justify-content-between">
@@ -204,9 +227,12 @@
 								</div>
 							</div>
 						</div>
+								<?php
+							}
+						}
+						?>
 					</div>
 				</div>
-
 				<!-- Single gallery Item -->
 				<div class="col-12 col-md-6 single_gallery_item entre tutor wow fadeInUp" data-wow-delay="0.2s">
 					<!-- Welcome Music Area -->

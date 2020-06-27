@@ -29,10 +29,11 @@ add_action( 'wp_enqueue_scripts', 'themeslug_enqueue_style' );
  */
 function themeslug_enqueue_script() {
 		wp_enqueue_script( 'jquery' );
-		wp_enqueue_script( 'jquery', get_template_directory_uri() . '/js/jquery.min.js', array( 'jquery' ), '1.1', true );
+		wp_enqueue_script( 'jquery-min', get_template_directory_uri() . '/js/jquery.min.js', array( 'jquery' ), '1.1', true );
 		wp_enqueue_script( 'popper', get_template_directory_uri() . '/js/popper.min.js', array( 'jquery' ), '1.1', true );
 		wp_enqueue_script( 'poca-bundle', get_template_directory_uri() . '/js/poca.bundle.js', array( 'jquery' ), '1.1', true );
 		wp_enqueue_script( 'active', get_template_directory_uri() . '/js/default-assets/active.js', array( 'jquery' ), '1.1', true );
+
 }
 add_action( 'wp_enqueue_scripts', 'themeslug_enqueue_script' );
 

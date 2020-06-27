@@ -85,7 +85,13 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 	<!-- ******* All JS ******* -->
 	<!-- jQuery js -->
-<?php wp_footer(); ?>
-</body>
+	<?php
+	/**
+	 * This is file commnet .
+	 *
+	 * @package poca
+	 */
 
+	wp_footer(); ?>
+</body>
 </html>
