@@ -1,0 +1,19 @@
+{
+    "git.ignoreLimitWarning": true,
+    "json.schemas": [
+        
+
+    
+    ],
+    "[json]": {
+    
+    },
+    "[jsonc]": {
+    
+    },
+    "composer.workingPath": "",
+    "timeline.pageSize": 0,
+    "[less]": {
+    
+    }
+}
