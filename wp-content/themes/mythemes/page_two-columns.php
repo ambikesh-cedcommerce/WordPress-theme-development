@@ -1,0 +1,1 @@
+<h1>page-tow-colums.php custom template file</h1>

@@ -1,0 +1,67 @@
+/*!
+ * Start Bootstrap - Blog Home (https://startbootstrap.com/template-overviews/blog-home)
+ * Copyright 2013-2019 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-blog-home/blob/master/LICENSE)
+ */
+
+body {
+    padding-top: 0;
+}
+
+.nave-item {
+    display: flex;
+    align-items: center;
+}
+
+
+/* .menu-item {
+    list-style-type: none;
+    margin-bottom: auto;
+    float: left;
+    display: flex;
+    text-align: center;
+    padding: 5px;
+    text-decoration: none;
+    font-size: 17px;
+    height: 100%;
+}
+*/
+
+.menu-item a {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    color: white;
+    justify-content: center;
+}
+
+.menu-item a:hover {
+    color: black;
+    text-justify: auto;
+    text-decoration: none;
+}
+
+#menu-top-bar>li {
+    display: inline-block;
+    position: relative;
+    margin: 15px;
+    list-style-type: none;
+}
+
+#menu-top-bar>li ul {
+    position: absolute;
+    left: 0;
+    padding: 0;
+    display: none;
+    list-style-type: none;
+    text-decoration: none;
+}
+
+#menu-top-bar>li ul li {
+    white-space: nowrap;
+}
+
+#menu-top-bar>li:hover ul {
+    display: block;
+    text-decoration: none;
+}
