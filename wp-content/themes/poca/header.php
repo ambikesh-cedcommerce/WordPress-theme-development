@@ -76,6 +76,8 @@
                                     array(
                                         'theme_location' => 'menu-1',
                                         'menu_id'        => 'nav',
+                                        'depth'          => 2,
+                        
                                     )
                                 );
                             ?>

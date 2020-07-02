@@ -54,10 +54,10 @@ if ( ! function_exists( 'poca_setup' ) ) :
 			)
 		);
 		function add_menuclass($ulclass) {
-			$classes = preg_replace( '/<ul /', '<ul class="dropdown"', $ulclass );
-			// $classes = preg_replace( '/<li /', '<li class="has-down"', $ulclass );
-		// 	// $classes = preg_replace( '/<ul /', '<ul class="dropdown"', $ulclass );
-		// 	// $classes = preg_replace( '/<li /', '<li class="has-down"', $ulclass );
+		$classes = preg_replace( '/<ul /', '<ul class="dropdown"', $ulclass );
+		// 	// $classes = preg_replace( '/<li <li id="menu-item-2273" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2273" /', '<li', $ulclass );
+		// // 	// $classes = preg_replace( '/<ul /', '<ul class="dropdown"', $ulclass );
+		// // 	// $classes = preg_replace( '/<li /', '<li class="has-down"', $ulclass );
 
 			
 			return $classes;
@@ -150,21 +150,7 @@ function poca_widgets_init() {
 }
 add_action( 'widgets_init', 'poca_widgets_init' );
 
-/**
- * Generate custom search form
- *
- * @param string $form Form HTML.
- * @return string Modified form HTML.
- */
-function wpdocs_my_search_form( $form ) {
-    $form = ' 
-	<input type="search" name="search" class="form-control" placeholder="Search here...">
-	<button type="submit"><i class="fa fa-search"></i></button>
-  ';
- 
-    return $form;
-}
-add_filter( 'get_search_form', 'wpdocs_my_search_form' );
+
 /**
  * Enqueue scripts and styles.
  */
@@ -215,3 +201,16 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
 
+/**
+ * Custom widgets category.
+ */
+require get_template_directory() . '/inc/class-categoriey-custom-widgets.php';
+
+/**
+ * Custom widgets Popular Tag
+ */
+require get_template_directory() . '/inc/class-custom-tag-widgets.php';
+/**
+ * Custom widgets Recent posts 
+ */
+require get_template_directory() . '/inc/class-recent-post.php';

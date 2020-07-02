@@ -73,13 +73,18 @@ get_header();
 		endif;
 		//End listing posts
 		 ?>       
-          <!-- Pagination -->
+         <!-- Pagination -->
           <div class="poca-pager d-flex mb-80">
             <a href="#">Previous Post <span>Episode 3 – Wardrobe For Busy People</span></a>
             <a href="#">Next Post <span>Episode 6 – Defining Your Style</span></a>
           </div>
-        </div>
-        <?php get_sidebar(); ?>
+          </div> 
+          <!-- Sidebar -->
+           <div class="col-12 col-lg-4">
+            <div class="sidebar-area mt-5">          
+              <?php get_sidebar(); ?>
+          </div> 
+        <!--  End Sidebar -->
       </div>
   </section>
     <!-- ***** Newsletter Area Start ***** -->
