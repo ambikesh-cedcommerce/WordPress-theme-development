@@ -128,7 +128,7 @@ class Widget_Categories extends WP_Widget {
 			$categories = get_terms(  apply_filters( 'widget_categories_args', $cat_args, $instance )); 
 				echo '<ul class = "catagories-list">';
 					foreach ($categories as $category) {
-						echo '<li><a href="'.get_category_link($categories).'"><i class="fa fa-angle-double-right" aria-hidden="true"></i>'. $category->name .'</a></li>';
+						echo '<li><a href="'.get_category_link( $categories ).'"><i class="fa fa-angle-double-right" aria-hidden="true"></i>'. $category->name .'</a></li>';
 					}
 				echo '</ul>';
 			?>

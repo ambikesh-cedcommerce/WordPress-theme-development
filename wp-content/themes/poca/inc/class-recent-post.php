@@ -102,15 +102,15 @@ class Widget_Recent_Posts extends WP_Widget {
 				}
 				?>
 				<div class="single-news-area d-flex">   
-				<div class="blog-thumbnail">
-                  <?php the_post_thumbnail('thumbnail'); ?>
-                </div>
-				<div class="blog-content">
-					<a class="post-title" href="<?php the_permalink( $recent_post->ID ); ?>"<?php echo $aria_current; ?>><?php echo $title; ?></a>
-					<?php if ( $show_date ) : ?>
-						<span class="post-date"><?php echo get_the_date( '', $recent_post->ID ); ?></span>
-					<?php endif; ?>
-				</div>
+					<div class="blog-thumbnail">
+					<?php the_post_thumbnail(); ?>
+					</div>
+					<div class="blog-content">
+						<a class="post-title" href="<?php the_permalink( $recent_post->ID ); ?>"<?php echo $aria_current; ?>><?php echo $title; ?></a>
+						<?php if ( $show_date ) : ?>
+							<span class="post-date"><?php echo get_the_date( '', $recent_post->ID ); ?></span>
+						<?php endif; ?>
+					</div>
 				</div>
 			<?php endforeach; ?>
 		

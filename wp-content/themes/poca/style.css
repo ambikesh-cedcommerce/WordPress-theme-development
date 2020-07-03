@@ -612,17 +612,17 @@ ul li {
     color: #ffffff;
 }
 
-.breakpoint-off .classynav ul li .dropdown {
+.breakpoint-off .classynav ul li .sub-menu {
     background-color: #000000;
 }
 
-.classynav ul li .dropdown li a {
+.classynav ul li .sub-menu li a {
     border-bottom: none;
     height: 40px;
 }
 
-.classynav ul li .dropdown li .dropdown li .dropdown li a,
-.classynav ul li .dropdown li .dropdown li a {
+.classynav ul li .sub-menu li .sub-menu li .sub-menu li a,
+.classynav ul li .sub-menu li .sub-menu li a {
     border-bottom: none;
 }
 

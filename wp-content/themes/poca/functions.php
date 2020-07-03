@@ -53,16 +53,17 @@ if ( ! function_exists( 'poca_setup' ) ) :
 				'menu-1' => esc_html__( 'Primary', 'poca' ),
 			)
 		);
-		function add_menuclass($ulclass) {
-		$classes = preg_replace( '/<ul /', '<ul class="dropdown"', $ulclass );
-		// 	// $classes = preg_replace( '/<li <li id="menu-item-2273" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2273" /', '<li', $ulclass );
-		// // 	// $classes = preg_replace( '/<ul /', '<ul class="dropdown"', $ulclass );
-		// // 	// $classes = preg_replace( '/<li /', '<li class="has-down"', $ulclass );
+		// function add_menuclass($ulclass) {
+			
+		// $classes = preg_replace( '/<ul class="level0">(.*)<\/ul>/iU', '<ul class="dropdown"', $ulclass );
+		// // 	// $classes = preg_replace( '/<li <li id="menu-item-2273" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2273" /', '<li', $ulclass );
+		// // // 	// $classes = preg_replace( '/<ul /', '<ul class="dropdown"', $ulclass );
+		// // // 	// $classes = preg_replace( '/<li /', '<li class="has-down"', $ulclass );
 
 			
-			return $classes;
-		 }
-		 add_filter('wp_nav_menu','add_menuclass');
+		// 	return $classes;
+		//  }
+		//  add_filter('wp_nav_menu','add_menuclass');
 			
 		/*
 		 * Switch default core markup for search form, comment form, and comments
