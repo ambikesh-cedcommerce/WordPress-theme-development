@@ -103,7 +103,7 @@ class Widget_Recent_Posts extends WP_Widget {
 				?>
 				<div class="single-news-area d-flex">   
 					<div class="blog-thumbnail">
-					<?php the_post_thumbnail(); ?>
+					<?php  echo get_the_post_thumbnail( 'full' );?>
 					</div>
 					<div class="blog-content">
 						<a class="post-title" href="<?php the_permalink( $recent_post->ID ); ?>"<?php echo $aria_current; ?>><?php echo $title; ?></a>
