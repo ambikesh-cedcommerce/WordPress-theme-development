@@ -15,7 +15,7 @@
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="profile" href="https://gmpg.org/xfn/11">
+	<link rel="profile" href="<?php echo get_template_directory_uri(); ?>gmpg.org/xfn/11">
 
 	<?php wp_head(); ?>
 </head>
@@ -25,7 +25,7 @@
     <!-- Preloader -->
     <div id="preloader">
         <div class="preloader-thumbnail">
-            <img src="./img/core-img/preloader.png" alt="">
+            <img src="<?php echo get_template_directory_uri(); ?>/img/core-img/preloader.png" alt="">
         </div>
     </div>
 
@@ -76,8 +76,7 @@
                                     array(
                                         'theme_location' => 'menu-1',
                                         'menu_id'        => 'nav',
-                                        
-                        
+
                                     )
                                 );
                             ?>

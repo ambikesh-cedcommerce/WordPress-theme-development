@@ -75,8 +75,8 @@ get_header();
 		 ?>       
          <!-- Pagination -->
           <div class="poca-pager d-flex mb-80">
-            <a href="#">Previous Post <span>Episode 3 – Wardrobe For Busy People</span></a>
-            <a href="#">Next Post <span>Episode 6 – Defining Your Style</span></a>
+                <?php previous_post_link($format = '%link', $link = 'Previous Post<br><span>%title</span>'); ?>
+								<?php next_post_link($format = '%link', $link = 'Next Post<br><span>%title</span>'); ?>
           </div>
           </div> 
           <!-- Sidebar -->

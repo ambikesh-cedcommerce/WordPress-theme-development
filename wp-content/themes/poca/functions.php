@@ -141,7 +141,7 @@ function poca_widgets_init() {
 			'name'          => esc_html__( 'Sidebar_Right', 'poca' ),
 			'id'            => 'sidebar-1',
 			'description'   => esc_html__( 'Add widgets here.', 'poca' ),
-			'before_widget' => '<div class="single-widget-area %2$s-widget-area mb-80">',
+			'before_widget' => '<div class="single-widget-area search-widget-area mb-80">',
 			'after_widget'  => '</div>',
 			'before_title'  => '<h5 class="widget-title">',
 			'after_title'   => '</h5>',
@@ -156,21 +156,43 @@ add_action( 'widgets_init', 'poca_widgets_init' );
  * Enqueue scripts and styles.
  */
 function poca_scripts() {
-	wp_enqueue_style( 'poca-style', get_template_directory_uri() . '/style.css', array(), 1.0 );
-	wp_enqueue_style( 'poca-bootsrap', get_template_directory_uri() . '/css/bootstrap.min.css', array(), 1.0 );
+
+	wp_enqueue_script( 'jquery', get_template_directory_uri() . '/js/jquery.min.js', array(), '', true );
+	wp_enqueue_script( 'popper', get_template_directory_uri() . '/js/popper.min.js', array(), '', true );
+	wp_enqueue_script( 'poca-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '', true );
+	wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/js/bootstrap.min.js', array(), '', true );
+	wp_enqueue_script( 'imagesloaded', get_template_directory_uri() . '/js/imagesloaded.pkgd.min.js', array(), '', true );
+	wp_enqueue_script( 'isotope', get_template_directory_uri() . '/js/isotope.pkgd.min.js', array(), '', true );
+	wp_enqueue_script( 'jarallax', get_template_directory_uri() . '/js/jarallax.min.js', array(), '', true );
+	wp_enqueue_script( 'jarallax-video', get_template_directory_uri() . '/js/jarallax-video.min.js', array(), '', true );
+	wp_enqueue_script( 'jquery-easing', get_template_directory_uri() . '/js/jquery.easing.min.js', array(), '', true );
+	wp_enqueue_script( 'owl-carousel', get_template_directory_uri() . '/js/owl.carousel.min.js', array(), '', true );
+	wp_enqueue_script( 'poca-bundle', get_template_directory_uri() . '/js/poca.bundle.js', array(), '', true );
+	wp_enqueue_script( 'waypoints', get_template_directory_uri() . '/js/waypoints.min.js', array(), '', true );
+	wp_enqueue_script( 'wow', get_template_directory_uri() . '/js/wow.min.js', array(), '', true );
+	wp_enqueue_script( 'active', get_template_directory_uri() . '/js/default-assets/active.js', array(), '', true );
+	wp_enqueue_script( 'audioplayer', get_template_directory_uri() . '/js/default-assets/audioplayer.js', array(), '', true );
+	wp_enqueue_script( 'avoid-console-error', get_template_directory_uri() . '/js/default-assets/avoid.console.error.js', array(), '', true );
+	wp_enqueue_script( 'classynav', get_template_directory_uri() . '/js/default-assets/classynav.js', array(), '', true );
+	wp_enqueue_script( 'jquery-scrollup-min', get_template_directory_uri() . '/js/default-assets/jquery.scrollup.min.js', array(), '', true );
+	wp_enqueue_script( 'myjquery', get_template_directory_uri() . '/js/myjquery.js', array(), '', true );
+
+
+	wp_enqueue_style( 'animate', get_template_directory_uri() . '/css/animate.css', array(), '' );
+	wp_enqueue_style( 'bootstrap-min', get_template_directory_uri() . '/css/bootstrap.min.css', array(), '' );
+	wp_enqueue_style( 'font-awesome', get_template_directory_uri() . '/css/font-awesome.min.css', array(), '' );
+	wp_enqueue_style( 'owl-carousel', get_template_directory_uri() . '/css/owl.carousel.min.css', array(), '' );
+	wp_enqueue_style( 'audioplayer', get_template_directory_uri() . '/css/default-assets/audioplayer.css', array(), '' );
+	wp_enqueue_style( 'classy-nav', get_template_directory_uri() . '/css/default-assets/classy-nav.css', array(), '' );
+	wp_enqueue_style( 'hkgrotesk-fonts', get_template_directory_uri() . '/css/default-assets/hkgrotesk-fonts.css', array(), '' );
+	wp_enqueue_style( 'poca-style', get_stylesheet_uri(), array(), '' );
 		
 	wp_style_add_data( 'poca-style', 'rtl', 'replace' );
 	
-	//js file include here
-	wp_enqueue_script( 'poca-boostrap', get_template_directory_uri() . '/js/jquery.min.js', array(), _S_VERSION, true );
-	wp_enqueue_script( 'poca-jquery-min', get_template_directory_uri() . '/js/popper.min.js', array(), _S_VERSION, true );
-	wp_enqueue_script( 'poca-popper', get_template_directory_uri() . '/js/bootstrap.min.js', array(), _S_VERSION, true );
-	wp_enqueue_script( 'poca-bundle', get_template_directory_uri() . '/js/poca.bundle.js', array(), _S_VERSION, true );
-	wp_enqueue_script( 'poca-active', get_template_directory_uri() . '/js/default-assets/active.js', array(), _S_VERSION, true );
 
-	// if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
-	// 	wp_enqueue_script( 'comment-reply' );
-	// }
+	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
+		wp_enqueue_script( 'comment-reply' );
+	}
 
 }
 add_action( 'wp_enqueue_scripts', 'poca_scripts' );
@@ -212,6 +234,93 @@ require get_template_directory() . '/inc/class-categoriey-custom-widgets.php';
  */
 require get_template_directory() . '/inc/class-custom-tag-widgets.php';
 /**
- * Custom widgets Recent posts 
+ * Custom widgets Recent posts
  */
 require get_template_directory() . '/inc/class-recent-post.php';
+
+/*******************************************************************
+	Comment LIsting Functions wp-list_comment | Callback Function
+		[ To arrange all the listing style manually ]
+********************************************************************/
+function comment_section( $comment, $args, $depth ) { ?>
+	<!-- Comments Area -->
+	<!-- Single Comment Area -->
+	<li class="single_comment_area">
+	<!-- Comment Content -->
+			<div class="comment-content d-flex">
+				<!-- Comment Author -->
+				 <div class="comment-author">
+					<?php  echo get_avatar( $comment );  ?>
+				 </div>
+				 <!-- Comment Meta -->
+				 <div class="comment-meta">
+					 <a href="#" class="post-date"><?php echo get_comment_date(); ?></a>
+					 <h5><?php echo get_comment_author_link(); ?></h5>
+					 <p><?php comment_text(); ?></p>
+					 <a href="#" class="like">Like</a>
+					 <?php comment_reply_link(
+						array_merge(
+							$args,
+							array(
+							   'reply_text' => __('Reply', 'poca'),
+							   'depth'      => $depth,
+							   'class'      => 'reply',
+							)
+						)	
+					); ?>
+				  </div>
+		  </div>
+		</li>
+	<?php			  
+	}
+
+/**
+ * This filter will arrange input field according to the theme
+ * 			1-> Text Area
+ * 			2-> Author Name 
+ * 			3-> Email 
+ * 			   ||
+ * 			   \/
+ * 			1-> Author Name
+ *			2-> Email
+ *          3-> Text area
+ */	
+	
+add_filter( 'comment_form_fields', 'move_comment_field' );
+function move_comment_field( $fields ) {
+	$comment_field = $fields['comment'];
+	unset( $fields['comment'] );
+	$fields['comment'] = $comment_field;
+	$cookie__field = $fields['cookies'];
+	unset( $fields['cookies'] );
+	$fields['cookies'] = $cookie__field;
+	return $fields;
+}
+
+add_action( 'comment_form_top', function(){
+	// Adjust this to your needs:
+	echo '<div class="row">'; 
+});
+add_action( 'comment_form', function(){
+	// Adjust this to your needs:
+	echo '</div>'; 
+});
+
+/**
+ * add remove comment-reply-link and reply class in a tag [ In reply button ] .
+ */
+add_filter('comment_reply_link', 'replace_reply_link_class');
+
+
+function replace_reply_link_class($class){
+    $class = str_replace("class='comment-reply-link", "class='reply", $class);
+    return $class;
+}
+/**
+ * Removing inline style from custom tag listing ul li anchor tag
+ */
+add_filter('wp_generate_tag_cloud', 'myprefix_tag_cloud',10,1);
+
+function myprefix_tag_cloud($tag_string){
+  return preg_replace('/style=("|\')(.*?)("|\')/','',$tag_string);
+}

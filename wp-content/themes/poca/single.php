@@ -36,85 +36,129 @@ get_header();
   </div>
   <!-- ***** Breadcrumb Area End ***** -->
 
-  <!-- ***** Blog Details Area Start ***** -->
-  <section class="blog-details-area">
-    <div class="container">
-      <div class="row">
-        <div class="col-12 col-lg-8">
-          <div class="podcast-details-content d-flex mt-5 mb-80">
+  <main id="primary" class="site-main">
 
-            <!-- Post Share -->
-            <div class="post-share">
-              <p>Share</p>
-              <div class="social-info">
-                <a href="#" class="facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                <a href="#" class="twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                <a href="#" class="google-plus"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
-                <a href="#" class="pinterest"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                <a href="#" class="thumb-tack"><i class="fa fa-thumb-tack" aria-hidden="true"></i></a>
-              </div>
-            </div>
-            <?php 
-             if ( have_posts() ) {
-                while ( have_posts() ) {   
-                  the_post();
-              ?>
-            <!-- Post Details Text -->
-            <div class="post-details-text">
-              <?php the_post_thumbnail(); ?>
+	<!-- ***** Blog Details Area Start ***** -->
+	<section class="blog-details-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-12 col-lg-8">
+				<?php if(have_posts()){ ?>
+					<?php while(have_posts()){ ?>
+						<?php the_post(); ?>
+					<div class="podcast-details-content d-flex mt-5 mb-80">
 
-              <div class="post-content">
-                <a href="#" class="post-date"><?php the_date(); ?></a>
-                <h2>TLS #281: The Lively Show</h2>
-                <div class="post-meta">
-                  <a href="#" class="post-author">By <?php the_author(); ?></a> |
-                  <a href="#" class="post-catagory">Tutorials</a>
-                </div>
-              </div>
+						<!-- Post Share -->
+						<div class="post-share">
+							<p>Share</p>
+							<div class="social-info">
+								<a href="#" class="facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+								<a href="#" class="twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+								<a href="#" class="google-plus"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+								<a href="#" class="pinterest"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+								<a href="#" class="thumb-tack"><i class="fa fa-thumb-tack" aria-hidden="true"></i></a>
+							</div>
+						</div>
 
-              <p><?php the_content(); ?></p>
+						<!-- Post Details Text -->
+						<div class="post-details-text">
+							<?php the_post_thumbnail(); ?>
 
-              <!-- Blockquote -->
-              <blockquote class="poca-blockquote d-flex">
-                <div class="icon">
-                  <i class="fa fa-quote-left" aria-hidden="true"></i>
-                </div>
-                <div class="text">
-                  <h5>That’s not to say you’ll have the exact same thing if you stop by: the restaurant’s menus change constantly, based on seasonal ingredients.</h5>
-                  <h6><?php the_author();?></h6>
-                </div>
-              </blockquote>
+							<div class="post-content">
+								<a href="#" class="post-date"><?php the_date(); ?></a>
+								<h2><?php the_title(); ?></h2>
+								<div class="post-meta">
+								<a href="#" class="post-author"><?php the_author(); ?></a> |
+								<a href="#" class="post-catagory"><?php the_category(', '); ?></a>
+								</div>
+							</div>
 
-              <h2><?php the_content_feed(); ?></h2>
-              <p><?php the_content(); ?></p>
-          <?php     
-                }            
-            } 
-            ?>
-              <!-- Post Catagories -->
-              <div class="post-catagories d-flex align-items-center">
-                <h6>Categories:</h6>
-                <ul class="d-flex flex-wrap align-items-center">
-                  <li><a href="#">Tutorials,</a></li>
-                  <li><a href="#">Business,</a></li>
-                  <li><a href="#">Tech</a></li>
-                </ul>
-              </div>
+							<p><?php the_content(); ?></p>
 
-              <!-- Pagination -->
-              <div class="poca-pager d-flex mb-30">
-                <a href="#">Previous Post <span>Episode 3 – Wardrobe For Busy People</span></a>
-                <a href="#">Next Post <span>Episode 6 – Defining Your Style</span></a>
-              </div>
-              <?php comments_template(); ?>
-              <!-- Sidebar -->
-              <div class="col-12 col-lg-4">
-                <div class="sidebar-area mt-5">          
-                  <?php get_sidebar(); ?>
-              </div> 
-              <!--  End Sidebar -->
-            </div>
-          </section>
+							<!-- Post Catagories -->
+							<div class="post-catagories d-flex align-items-center">
+								<h6>Categories:</h6>
+								<?php the_category('<b> , </b>'); ?>
+								>
+							</div>
+
+							<!-- Pagination -->
+							<div class="poca-pager d-flex mb-30">
+								<?php previous_post_link($format = '%link', $link = 'Previous Post<br><span>%title</span>'); ?>
+								<?php next_post_link($format = '%link', $link = 'Next Post<br><span>%title</span>'); ?>
+							</div>
+
+							<!-- Comments Area -->
+							<div class="comment_area mb-50 clearfix">
+								<h5 class="title">
+								<?php
+                /**
+                 *  Comment cout with titles 
+                 */
+									$poca_comment_count = get_comments_number();
+									if ( '1' === $poca_comment_count ) {
+										printf(
+											/* translators: 1: comment count number. */
+											esc_html__( '%1$s Comment', 'poca' ),
+											$poca_comment_count
+										);
+									} else {
+										printf( 
+											/* translators: 1: comment count number. */
+											esc_html( _nx( '%1$s Comment', '%1$s Comments', $poca_comment_count, 'poca' ) ),
+											$poca_comment_count
+											
+										);
+									}
+								?>
+								<?php // echo $comments_count. ' Comments'; ?></h5>
+								<?php
+									// If comments are open or we have at least one comment, load up the comment template.
+									if ( comments_open() || get_comments_number() ) :
+										comments_template();
+									endif;
+								?>								
+							</div>
+							<div class="contact-form">
+								<?php
+								$comment_author = 'Name';
+								$comment_email = 'Email';
+								$comment_body = 'Comments';
+								$fields = array(
+									//Author field
+									'author' => '<div class="col-lg-6"><input class="form-control mb-30" id="author" name="author" aria-required="true" placeholder="' . $comment_author .'"></input></div>',
+									//Email Field
+									'email' => '<div class="col-lg-6"><input class="form-control mb-30" id="email" name="email" placeholder="' . $comment_email .'"></input></div>',
+									//'cookies' => '',
+								);
+								$args = array(
+									'class_submit' => 'btn poca-btn mt-30',
+									'label_submit' => __( 'Post Comment' ),
+									
+									'comment_field' => '<div class="col-12"><textarea id="comment" name="comment" class="form-control mb-30" aria-required="true" placeholder="' . $comment_body .'"></textarea></div>',
+									'title_reply' => '<h5 class="mb-30">Leave A Comment</h5>',
+									'fields'       => apply_filters( 'comment_form_default_fields', $fields ),
+								);
+								comment_form( $args );
+								?>
+							</div>
+						</div>
+					</div>
+					<?php } ?>
+				<?php } ?>
+				</div>
+
+				<div class="col-12 col-lg-4">
+					<div class="sidebar-area mt-5">
+					    <?php get_sidebar(); ?>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- ***** Blog Details Area End ***** -->
+		
+</main><!-- #main -->
         <!-- ***** Newsletter Area Start ***** -->
         <section class="poca-newsletter-area bg-img bg-overlay pt-50 jarallax" style="background-image: url(<?php echo get_template_directory_uri(); ?>/img/bg-img/15.jpg);">
           <div class="container">
