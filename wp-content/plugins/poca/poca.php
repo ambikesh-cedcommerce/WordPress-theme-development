@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The plugin bootstrap file
  *
@@ -80,3 +79,8 @@ function run_poca() {
 
 }
 run_poca();
+
+/**
+ * Including custom post type Podcast
+ */
+require plugin_dir_path( __FILE__ ) . 'includes/custom-post-podcast.php';
