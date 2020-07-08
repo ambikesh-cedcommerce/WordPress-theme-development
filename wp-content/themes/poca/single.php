@@ -37,7 +37,7 @@ get_header();
   <!-- ***** Breadcrumb Area End ***** -->
 
   <main id="primary" class="site-main">
-
+<h1>single.php</h1>
 	<!-- ***** Blog Details Area Start ***** -->
 	<section class="blog-details-area">
 		<div class="container">

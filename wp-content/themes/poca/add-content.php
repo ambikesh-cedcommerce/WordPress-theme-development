@@ -336,3 +336,6 @@
 	<?php
 	get_sidebar();
 	get_footer();
+	?>
+<!-- // ********************************************************** -->
+<!-- <li><a href="<?php // echo get_term_link($term->slug, $taxonomy); ?>"></a></li> -->

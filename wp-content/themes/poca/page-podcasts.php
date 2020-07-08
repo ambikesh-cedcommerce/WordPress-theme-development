@@ -92,17 +92,31 @@ get_header();
       <div class="poca-projects-menu mb-30 wow fadeInUp" data-wow-delay="0.3s">
         <div class="text-center portfolio-menu">
           <button class="btn active" data-filter="*">All</button>
-          <button class="btn" data-filter=".entre">Entrepreneurship</button>
-          <button class="btn" data-filter=".media">Media</button>
-          <button class="btn" data-filter=".tech">Tech</button>
-          <button class="btn" data-filter=".tutor">Tutorials</button>
+        <!-- ***********************************************************
+                Fetching all Podcast [ custom-post-category ]category 
+             ***********************************************************-->
+            <?php
+
+                $taxonomy = 'podcast-cat';
+                $terms = get_terms($taxonomy); // Get all terms of a taxonomy
+                if ( $terms && !is_wp_error( $terms ) ) :
+            ?>
+              <?php foreach ( $terms as $term ) {
+                    
+              ?>
+                <button class="btn" data-filter=".entre"><?php echo $term->name; ?></button>
+              <?php } ?>
+          <?php endif;?>
+          <!-- // End fetching category -->
         </div>
       </div>
     </div>
 
     <div class="container">
       <div class="row poca-portfolio">
-      <!-- Fetching  all the podcast Custom post type  form the DataBase -->
+      <!--*****************************************************************
+            Fetching  all the podcast Custom post type  form the DataBase
+          ***************************************************************** -->
       <?php
         $args = array(
             'post_type'   => 'podcast',
@@ -124,10 +138,10 @@ get_header();
               <?php the_post_thumbnail(); ?>
             </div>
             <div class="poca-music-content text-center">
-              <span class="music-published-date mb-2"><?php the_date(); ?></span>
-              <h2><?php  get_the_title(); ?></h2>
+              <span class="music-published-date mb-2"><?php echo get_the_date(); ?></span>
+              <h2><?php the_title(); ?></h2>
               <div class="music-meta-data">
-                <p>By <a href="<?php the_author_link(); ?>" class="music-author"><?php the_author(); ?></a> | <a href="#" class="music-catagory"><?php the_category(); ?></a> | <a href="<?php the_permalink(); ?>" class="music-duration"><?php the_time(); ?></a></p>
+                <p>By <a href="<?php the_permalink(); ?>" class="music-author"><?php the_author(); ?></a> | <a href="<?php the_permalink(); ?>" class="music-catagory"><?php the_category(); ?></a> | <a href="<?php the_permalink(); ?>" class="music-duration"><?php the_time(); ?></a></p>
               </div>
               <!-- Music Player -->
               <div class="poca-music-player">
@@ -156,8 +170,10 @@ get_header();
                   esc_html_e( 'No podcast_posts in the diving taxonomy!', 'text-domain' );
               endif;
             ?>
-
-        <!-- End single gellrey Item -->
+          <!--*****************************************************************
+              //  . END Fetching  all the podcast Custom post type  form the DataBase
+          ***************************************************************** -->
+         <!-- // . End single gellrey Item -->
       </div>
     </div>
 
