@@ -43,7 +43,25 @@ get_header();
     <div class="container">
       <div class="row">
         <div class="col-12 col-lg-8">
-          <h1>index.php</h1>
+          <!-- <h1>index.php</h1> -->
+          <!-- Listing custom post type Podcast -->
+          <?php
+                  $taxonomy = 'podcast-cat';
+                  $tax_terms = get_terms( $taxonomy );
+
+                    foreach ($tax_terms as $tax_term) { ?>
+                      <ul>
+                        <!-- <h1>custom post type </h1> -->
+                        <li>
+                        <?php  // $query =  query_posts("post_type=podcast&podcast_cat=".$tax_term->name);
+                       // if ( have_posts() ) { while ( have_posts() ) { the_post(); $post = get_post();  ?>
+                            <!-- <ul><li class="fl tr">
+                                <a href="<?php // the_permalink(); ?>"><?php // the_title(); ?></a> -->
+                                <!-- </li></ul>
+                                <?php // }} ?> -->
+                              </li>
+                       </ul>
+          <?php  }   ?>
 		<?php
 		//==================
 		// Listing all Posts

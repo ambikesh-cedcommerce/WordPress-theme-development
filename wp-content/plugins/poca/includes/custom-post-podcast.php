@@ -93,13 +93,13 @@ function poca_register_taxonomy_category_and_tags() {
 		'show_admin_column' => true,
 		'query_var'         => true,
 		'rewrite'           => array(
-			'slug' => 'podcast-category',
+			'slug' => 'podcast-cat',
 		),
 	);
 	// 1. First Parameter of register_taxonomy is "slug" of the taxonomy which will show in the browser URL.
 	// 2. Second @param is custom post name where it will show in the sub-menu of the custom posts.
 	// 3. Third is Arguments.
-	register_taxonomy( 'category', array( 'podcast' ), $args );
+	register_taxonomy( 'podcast-cat', array( 'podcast' ), $args );
 
 	$labels_tag = array(
 		'name'              => _x( 'Podcast tag ', 'taxonomy general name' ),
@@ -124,6 +124,6 @@ function poca_register_taxonomy_category_and_tags() {
 			'slug' => 'podcast-tag',
 		),
 	);
-	register_taxonomy( 'tag', array( 'podcast' ), $args_tag );
+	register_taxonomy( 'podcast-tag', array( 'podcast' ), $args_tag );
 }
 add_action( 'init', 'poca_register_taxonomy_category_and_tags' );
